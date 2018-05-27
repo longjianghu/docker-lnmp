@@ -9,3 +9,13 @@ Docker 是基于GO语言实现的开源容器项目，现在主流的Linux系统
 2. 一次创建与配置，之后可以在任意地方，任意时间让应用正常的运行
 3. 高效的资源利用，docker 容器不需要额外的虚拟化管理程序（虚拟机）
 4. 加速本地的开发和构建流程，容器可以在开发环境构建，然后轻松地提交到测试环境，并最终进入生产环境
+
+### MySQL容器运行方法
+
+MySQL:
+
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+Nginx:
+
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/  -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.14
