@@ -17,6 +17,9 @@ services:
     nginx:
         image: nginx:1.14
         container_name: nginx
+        depends_on:
+          - phpfpm
+          - mysql
         ports:
           - "80:80"
           - "443:443"
@@ -26,9 +29,20 @@ services:
           - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
           - /data/var/log/nginx:/var/log/nginx
         networks:
-            - nginx
+          - nginx
         restart: always
-
+    phpfpm:
+        image: php:7.2-fpm
+        container_name: phpfpm
+        ports:
+            - "9000:9000"
+        volumes:
+            - /data/var/www:/var/www/html
+            - /data/var/etc/php:/usr/local/etc/php/conf.d
+        networks:
+            - phpfpm
+        restart: always
 networks:
   mysql:
   nginx:
+  phpfpm:
