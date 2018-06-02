@@ -15,10 +15,10 @@ services:
           - mysql
         restart: always
     nginx:
-        image: nginx:1.14
+        image: nginx:1.14-alpine
         container_name: nginx
         depends_on:
-          - phpfpm
+          - php-fpm
           - mysql
         ports:
           - "80:80"
@@ -28,21 +28,23 @@ services:
           - /data/var/etc/nginx/conf.d:/etc/nginx/conf.d
           - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
           - /data/var/log/nginx:/var/log/nginx
+        links:
+          - php-fpm
         networks:
           - nginx
         restart: always
-    phpfpm:
-        image: php:7.2-fpm
-        container_name: phpfpm
+    php-fpm:
+        image: php:7.2-fpm-alpine
+        container_name: php-fpm
         ports:
             - "9000:9000"
         volumes:
             - /data/var/www:/var/www/html
             - /data/var/etc/php:/usr/local/etc/php/conf.d
         networks:
-            - phpfpm
+            - php-fpm
         restart: always
 networks:
   mysql:
   nginx:
-  phpfpm:
+  php-fpm:
