@@ -34,12 +34,12 @@ services:
           - nginx
         restart: always
     php-fpm:
-        image: php:7.2-fpm-alpine
+        image: php-fpm:7.2
         container_name: php-fpm
         ports:
             - "9000:9000"
         volumes:
-            - /data/var/www:/var/www/html
+            - /data/var/www:/usr/share/nginx/html
             - /data/var/etc/php:/usr/local/etc/php/conf.d
         networks:
             - php-fpm

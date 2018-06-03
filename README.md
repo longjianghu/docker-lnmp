@@ -14,13 +14,23 @@ Docker 是基于GO语言实现的开源容器项目，现在主流的Linux系统
 yum -y install epel-release python-pip
 pip install docker-compose
 
+### 更换Composer中国镜像
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+### 构建容器
+docker build -t php-fpm:7.2 .
+docker build -t redis:4.0 .
+
 ### MySQL容器运行方法
+
 MySQL:
 docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
 
 Nginx:
 docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/  -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.14-alpine
 
 PHP:
-docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php:/usr/local/etc/php/conf.d -v /data/var/www:/var/www/html -d php:7.2-fpm-alpine
+docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html -d php-fpm:7.2
+
+Redis:
+docker run --name redis redis:4.0 redis-server /usr/local/etc/redis/redis.conf -p 6379:6379 -v /data/var/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf  -d redis:4.0
