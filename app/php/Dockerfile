@@ -30,6 +30,3 @@ RUN apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev .build-
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
-
-# 设置工作目录
-WORKDIR /usr/share/nginx/html

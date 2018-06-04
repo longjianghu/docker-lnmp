@@ -1,5 +1,3 @@
-### Docker LNMP
-
 ### Docker 简介
 Docker 是基于GO语言实现的开源容器项目，现在主流的Linux系统都支持Docker,Docker 的构想是想要实现“Build,Ship and Run Any App, Anywhere”,即通过对应用的封装（Packaging）、分发（Distribution）、部署（Deployment）、运行（Runtime）生命周期进行管理，达到应用组件“一次封装，到处运行”的目的。
 简单的来说，可以将Docker容器理解为一种轻量级的沙盒（sandbox）.每个容器运行着一个应用，不同的容器相互隔离，容器之间也可以通过网络互相通信。且容器的创建和停止都十分快速，几乎跟创建和终止原生应用一致。
@@ -10,11 +8,11 @@ Docker 是基于GO语言实现的开源容器项目，现在主流的Linux系统
 3. 高效的资源利用，docker 容器不需要额外的虚拟化管理程序（虚拟机）
 4. 加速本地的开发和构建流程，容器可以在开发环境构建，然后轻松地提交到测试环境，并最终进入生产环境
 
-### 安装Docker-Compose
+### 安装 Docker-Compose
 yum -y install epel-release python-pip
 pip install docker-compose
 
-### 更换Composer中国镜像
+### 更换 Composer 镜像
 composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 ### 构建容器
@@ -33,4 +31,4 @@ PHP:
 docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html -d php-fpm:7.2
 
 Redis:
-docker run --name redis redis:4.0 redis-server /usr/local/etc/redis/redis.conf -p 6379:6379 -v /data/var/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf  -d redis:4.0
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:4.0

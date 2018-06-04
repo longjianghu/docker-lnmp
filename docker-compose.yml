@@ -39,12 +39,24 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - /data/var/www:/usr/share/nginx/html
+            - /data/var/www:/var/www/html
             - /data/var/etc/php:/usr/local/etc/php/conf.d
         networks:
             - php-fpm
+        restart: always
+    redis:
+        image: redis:4.0
+        container_name: redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - /data/var/lib/redis:/data
+            - /data/var/etc/redis/redis.conf:/etc/redis.conf
+        networks:
+            - redis
         restart: always
 networks:
   mysql:
   nginx:
   php-fpm:
+  redis:
