@@ -12,7 +12,7 @@ services:
         environment:
           MYSQL_ROOT_PASSWORD: 123456
         networks:
-          - mysql
+          - lnmp
         restart: always
     nginx:
         image: nginx:1.14-alpine
@@ -31,7 +31,7 @@ services:
         links:
           - php-fpm
         networks:
-          - nginx
+          - lnmp
         restart: always
     php-fpm:
         image: php-fpm:7.2
@@ -42,7 +42,7 @@ services:
             - /data/var/www:/var/www/html
             - /data/var/etc/php:/usr/local/etc/php/conf.d
         networks:
-            - php-fpm
+            - lnmp
         restart: always
     redis:
         image: redis:4.0
@@ -53,10 +53,8 @@ services:
             - /data/var/lib/redis:/data
             - /data/var/etc/redis/redis.conf:/etc/redis.conf
         networks:
-            - redis
+            - lnmp
         restart: always
 networks:
-  mysql:
-  nginx:
-  php-fpm:
-  redis:
+  lnmp:
+    driver: bridge
