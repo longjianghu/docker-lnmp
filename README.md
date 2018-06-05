@@ -24,6 +24,8 @@ composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 ### 构建容器
 
+docker build -t mysql:5.7 .
+
 docker build -t php-fpm:7.2 .
 
 docker build -t redis:4.0 .
