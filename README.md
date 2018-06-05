@@ -38,7 +38,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 Nginx:
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/  -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.14-alpine
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/  -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ --link php-fpm:php-fpm -d nginx:1.14-alpine
 
 PHP:
 
