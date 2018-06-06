@@ -28,7 +28,7 @@ docker build -t mysql:5.7 .
 
 docker build -t php-fpm:7.2 .
 
-docker build -t redis:4.0 .
+docker build -t redis:3.2 .
 
 ### MySQL容器运行方法
 
@@ -46,4 +46,4 @@ docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php:/usr/local/etc/php/c
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:4.0
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:3.2 redis-server /etc/redis.conf

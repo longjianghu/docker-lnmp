@@ -45,14 +45,15 @@ services:
             - lnmp
         restart: always
     redis:
-        build: ./app/redis
-        image: redis:3.2
+        image: redis:3.2-alpine
         container_name: redis
         ports:
             - "6379:6379"
         volumes:
             - /data/var/lib/redis:/data
             - /data/var/etc/redis/redis.conf:/etc/redis.conf
+        environment:/etc/redis.conf
+            redis-server:/etc/redis.conf
         networks:
             - lnmp
         restart: always
