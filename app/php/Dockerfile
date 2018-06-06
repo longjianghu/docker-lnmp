@@ -15,7 +15,7 @@ RUN apk add --no-cache --virtual .build-deps bash bash-completion tzdata g++ mak
     --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
     --with-zlib-dir=/usr && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli \
-	&& pecl install redis-4.0.2 swoole-2.2.0 \
+	&& pecl install redis-3.1.6 swoole-2.2.0 \
     && docker-php-ext-enable redis swoole
 
 # 时区设置
