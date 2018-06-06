@@ -52,7 +52,7 @@ services:
         volumes:
             - /data/var/lib/redis:/data
             - /data/var/etc/redis/redis.conf:/etc/redis.conf
-        environment:/etc/redis.conf
+        environment:
             redis-server:/etc/redis.conf
         networks:
             - lnmp

@@ -28,8 +28,6 @@ docker build -t mysql:5.7 .
 
 docker build -t php-fpm:7.2 .
 
-docker build -t redis:3.2 .
-
 ### MySQL容器运行方法
 
 MySQL:
