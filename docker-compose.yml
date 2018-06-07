@@ -40,7 +40,8 @@ services:
             - "9000:9000"
         volumes:
             - /data/var/www:/var/www/html
-            - /data/var/etc/php:/usr/local/etc/php/conf.d
+            - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
+            - /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d
         networks:
             - lnmp
         restart: always

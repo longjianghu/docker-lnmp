@@ -40,8 +40,8 @@ docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/ht
 
 PHP:
 
-docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html -d php-fpm:7.2
+docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html -d php-fpm:7.2
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:3.2 redis-server /etc/redis.conf
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:3.2-alpine redis-server /etc/redis.conf
