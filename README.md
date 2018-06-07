@@ -1,16 +1,14 @@
-### Docker 简介
-Docker 是基于GO语言实现的开源容器项目，现在主流的Linux系统都支持Docker,Docker 的构想是想要实现“Build,Ship and Run Any App, Anywhere”,即通过对应用的封装（Packaging）、分发（Distribution）、部署（Deployment）、运行（Runtime）生命周期进行管理，达到应用组件“一次封装，到处运行”的目的。
-简单的来说，可以将Docker容器理解为一种轻量级的沙盒（sandbox）.每个容器运行着一个应用，不同的容器相互隔离，容器之间也可以通过网络互相通信。且容器的创建和停止都十分快速，几乎跟创建和终止原生应用一致。
+### 安装 Docker
 
-### 为什么使用docker
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
-1. 开发人员可以使用镜像来快速构建一套标准的开发环境
+usermod -aG docker  root
 
-2. 一次创建与配置，之后可以在任意地方，任意时间让应用正常的运行
+systemctl start docker
 
-3. 高效的资源利用，docker 容器不需要额外的虚拟化管理程序（虚拟机）
+### 配置加速器
 
-4. 加速本地的开发和构建流程，容器可以在开发环境构建，然后轻松地提交到测试环境，并最终进入生产环境
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8145ad9d.m.daocloud.io
 
 ### 安装 Docker-Compose
 
@@ -40,7 +38,7 @@ docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/ht
 
 PHP:
 
-docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html -d php-fpm:7.2
+docker run --name php-fpm -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d -v /data/var/www:/usr/share/nginx/html --link redis:redis -d php-fpm:7.2
 
 Redis:
 

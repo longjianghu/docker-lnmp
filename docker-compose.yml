@@ -42,6 +42,8 @@ services:
             - /data/var/www:/var/www/html
             - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
             - /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d
+        links:
+          - redis
         networks:
             - lnmp
         restart: always
