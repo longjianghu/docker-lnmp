@@ -12,23 +12,19 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps g++ make autoconf freetype \
-    libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev && \
-    docker-php-ext-configure gd \
-    --with-gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ \
-    --with-zlib-dir=/usr && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli
+    libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ -with-png-dir=/usr/include/ \
+	&& docker-php-ext-install -j$(nproc) gd zip gmp iconv opcache pdo_mysql mysqli
 
 # 安装增加扩展
 COPY ./src/redis-4.0.2.tgz /tmp/redis-4.0.2.tgz
-RUN pecl install /tmp/redis-4.0.2.tgz && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-
 COPY ./src/swoole-4.0.0.tgz /tmp/swoole-4.0.0.tgz
-RUN pecl install /tmp/swoole-4.0.0.tgz && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
+
+RUN pecl install /tmp/redis-4.0.2.tgz && pecl install /tmp/swoole-4.0.0.tgz \
+	&& docker-php-ext-enable redis swoole
 
 # 清除垃圾文件
-RUN apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev .build-deps \
+RUN apk del --no-cache .build-deps \
         && rm /var/cache/apk/* -rf \
         && rm /usr/src/* -rf \
         && rm /tmp/* -rf

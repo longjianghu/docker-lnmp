@@ -30,7 +30,7 @@ docker build -t mysql:5.7 ./app/mysql/
 
 docker build -t php-fpm:7.2 ./app/php/
 
-docker build -t redis:3.2 ./app/redis/
+docker build -t redis:4.0 ./app/redis/
 
 docker build -t nginx:1.14 ./app/nginx/
 
