@@ -1,7 +1,7 @@
 version: "3"
 services:
     mysql:
-        image: mysql:5.7
+        build: ./app/mysql
         container_name: mysql
         ports:
           - "3306:3306"
@@ -14,7 +14,7 @@ services:
           - lnmp
         restart: always
     nginx:
-        image: nginx:1.14-alpine
+        build: ./app/nginx
         container_name: nginx
         depends_on:
           - php-fpm
@@ -36,6 +36,8 @@ services:
         build: ./app/php
         image: php-fpm:7.2
         container_name: php-fpm
+        depends_on:
+          - mysql
         ports:
             - "9000:9000"
         volumes:
@@ -44,11 +46,12 @@ services:
             - /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d
         links:
           - redis
+          - mysql
         networks:
             - lnmp
         restart: always
     redis:
-        image: redis:3.2-alpine
+        build: ./app/redis
         container_name: redis
         ports:
             - "6379:6379"

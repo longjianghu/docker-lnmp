@@ -6,27 +6,33 @@ MAINTAINER Longjianghu <215241062@qq.com>
 COPY ./source.list /etc/apk/repositories
 RUN apk update
 
-# 安装扩展
-RUN apk add --no-cache --virtual .build-deps bash bash-completion tzdata g++ make autoconf freetype \
+# 时区设置
+ENV TIMEZONE Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
+# 安装基础扩展
+RUN apk add --no-cache --virtual .build-deps g++ make autoconf freetype \
     libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev && \
     docker-php-ext-configure gd \
     --with-gd \
     --with-freetype-dir=/usr/include/ \
     --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
-    --with-zlib-dir=/usr && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli \
-	&& pecl install redis-3.1.6 swoole-2.2.0 \
-    && docker-php-ext-enable redis swoole
+    --with-zlib-dir=/usr && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli
 
-# 时区设置
-ENV TIMEZONE Asia/Chongqing
-RUN echo ${TIMEZONE} > /etc/timezone
+# 安装增加扩展
+COPY ./src/redis-4.0.2.tgz /tmp/redis-4.0.2.tgz
+RUN pecl install /tmp/redis-4.0.2.tgz && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+
+COPY ./src/swoole-4.0.0.tgz /tmp/swoole-4.0.0.tgz
+RUN pecl install /tmp/swoole-4.0.0.tgz && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
 
 # 清除垃圾文件
-RUN apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev .build-deps \
+RUN apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev .build-deps \
         && rm /var/cache/apk/* -rf \
         && rm /usr/src/* -rf \
         && rm /tmp/* -rf
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
+RUN chmod a+x /usr/bin/composer
