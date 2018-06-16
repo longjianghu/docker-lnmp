@@ -12,7 +12,7 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps g++ make autoconf freetype \
-    libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev \
+    libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ -with-png-dir=/usr/include/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli

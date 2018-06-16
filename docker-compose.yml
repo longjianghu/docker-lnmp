@@ -33,7 +33,6 @@ services:
         restart: always
     php-fpm:
         build: ./app/php
-        image: php-fpm:7.2
         container_name: docker-php
         depends_on:
           - docker-mysql
