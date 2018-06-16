@@ -30,7 +30,7 @@ RUN rm /var/cache/apk/* -rf \
 	&& rm /tmp/* -rf
 
 # 设置工作目录
-WORKERDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
