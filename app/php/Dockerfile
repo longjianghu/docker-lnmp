@@ -17,7 +17,7 @@ RUN apk add --no-cache --virtual .build-deps g++ make autoconf freetype \
     && docker-php-ext-configure zip --with-libzip \
 	&& docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli
 
-# 安装增加扩展
+# 安装增强扩展
 COPY ./src/redis-4.0.2.tgz /tmp/redis-4.0.2.tgz
 COPY ./src/swoole-4.0.0.tgz /tmp/swoole-4.0.0.tgz
 
@@ -28,6 +28,9 @@ RUN pecl install /tmp/redis-4.0.2.tgz && pecl install /tmp/swoole-4.0.0.tgz \
 RUN rm /var/cache/apk/* -rf \
 	&& rm /usr/src/* -rf \
 	&& rm /tmp/* -rf
+
+# 设置工作目录
+WORKERDIR /usr/share/nginx/html
 
 # Composer
 COPY ./composer.phar /usr/bin/composer

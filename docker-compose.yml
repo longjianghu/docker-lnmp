@@ -41,7 +41,7 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - /data/var/www:/var/www/html
+            - /data/var/www:/usr/share/nginx/html
             - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
             - /data/var/etc/php/conf.d:/usr/local/etc/php/conf.d
         links:
