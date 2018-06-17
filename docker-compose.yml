@@ -17,7 +17,7 @@ services:
         build: ./app/nginx
         container_name: docker-nginx
         depends_on:
-          - docker-php
+          - php-fpm
         ports:
           - "80:80"
           - "443:443"
@@ -35,8 +35,8 @@ services:
         build: ./app/php
         container_name: docker-php
         depends_on:
-          - docker-mysql
-          - docker-redis
+          - mysql
+          - redis
         ports:
             - "9000:9000"
         volumes:
