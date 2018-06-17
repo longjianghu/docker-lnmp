@@ -28,7 +28,7 @@ ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 # 清除垃圾文件
-RUN RUN apk del .build-deps tzdata \
+RUN apk del .build-deps tzdata \
     && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf
