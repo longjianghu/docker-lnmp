@@ -8,10 +8,10 @@ RUN apk update
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf freetype \
-    libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev imagemagick-dev \
+    libpng libjpeg-turbo freetype-dev curl-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ -with-png-dir=/usr/include/ \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli
+    && docker-php-ext-install -j$(nproc) gd zip curl gmp opcache pdo_mysql mysqli
 
 # 安装增强扩展
 COPY ./src/redis-4.0.2.tgz /tmp/redis-4.0.2.tgz
