@@ -27,7 +27,7 @@ services:
           - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
           - /data/var/log/nginx:/var/log/nginx
         links:
-          - docker-php:php-fpm
+          - php-fpm:php-fpm
         networks:
           - lnmp
         restart: always
@@ -43,8 +43,8 @@ services:
             - /data/var/www:/usr/share/nginx/html
             - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
         links:
-          - docker-redis:redis
-          - docker-mysql:mysql
+          - redis:redis
+          - mysql:mysql
         networks:
             - lnmp
         restart: always
