@@ -42,7 +42,7 @@ docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/e
 
 Redis:
 
-docker run --name docker-redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d docker-redis:4.0 redis-server /etc/redis.conf
+docker run --name docker-redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d docker-redis:4.0
 
 PHP:
 

@@ -6,12 +6,8 @@ MAINTAINER Longjianghu <215241062@qq.com>
 COPY ./source.list /etc/apk/repositories
 RUN apk update
 
-# 时区设置
-ENV TIMEZONE Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-
 # 安装基础扩展
-RUN apk add --no-cache --virtual .build-deps g++ make autoconf freetype \
+RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf freetype \
     libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ -with-png-dir=/usr/include/ \
     && docker-php-ext-configure zip --with-libzip \
@@ -27,8 +23,13 @@ RUN pecl install /tmp/redis-4.0.2.tgz && pecl install /tmp/swoole-4.0.0.tgz \
     && pecl install /tmp/mongodb-1.4.4.tgz && pecl install /tmp/imagick-3.4.3.tgz \
     && docker-php-ext-enable redis swoole mongodb imagick
 
+# 时区设置
+ENV TIMEZONE Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
 # 清除垃圾文件
-RUN rm /var/cache/apk/* -rf \
+RUN RUN apk del .build-deps tzdata \
+    && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf
 

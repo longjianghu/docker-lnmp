@@ -56,8 +56,6 @@ services:
         volumes:
             - /data/var/lib/redis:/data
             - /data/var/etc/redis/redis.conf:/etc/redis.conf
-        command:
-            redis-server /etc/redis.conf
         networks:
             - lnmp
         restart: always
