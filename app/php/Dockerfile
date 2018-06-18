@@ -7,9 +7,9 @@ COPY ./source.list /etc/apk/repositories
 RUN apk update
 
 # 安装基础扩展
-RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf freetype libpng libjpeg-turbo \
-    freetype-dev curl-dev libpng-dev libjpeg-turbo-dev gmp-dev libzip-dev imagemagick-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ -with-png-dir=/usr/include/ \
+RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp libpng libjpeg freetype \
+    freetype-dev curl-dev libpng-dev jpeg-dev gmp-dev libzip-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip curl gmp opcache pdo_mysql mysqli
 
@@ -27,12 +27,9 @@ ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 # 清除垃圾文件
-RUN apk del .build-deps \
-    && rm /var/cache/apk/* -rf \
+RUN rm /var/cache/apk/* -rf \
+    && rm /usr/src/* -rf \
     && rm /tmp/* -rf
-
-# 设置工作目录
-WORKDIR /usr/share/nginx/html
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
