@@ -50,4 +50,4 @@ docker run --name docker-php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/loca
 
 Nginx:
 
-docker run --name docker-nginx -p 80:80 -p 443:443 -v /data/var/www:/usr/share/nginx/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ --link docker-php:php-fpm -d docker-nginx:1.14
+docker run --name docker-nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ --link docker-php:php-fpm -d docker-nginx:1.14
