@@ -45,7 +45,7 @@ services:
               - /data/var/www:/var/www/html
               - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
         networks:
-              lnmp-network:
+            lnmp-network:
                 aliases:
                     - php-fpm
         restart: always
@@ -58,8 +58,8 @@ services:
               - /data/var/lib/redis:/data
               - /data/var/etc/redis/redis.conf:/etc/redis.conf
         networks:
-              lnmp-network:
-              aliases:
+            lnmp-network:
+                aliases:
                     - redis
         restart: always
 networks:
