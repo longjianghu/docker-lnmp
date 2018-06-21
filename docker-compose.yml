@@ -4,61 +4,64 @@ services:
         build: ./app/mysql
         container_name: docker-mysql
         ports:
-          - "3306:3306"
+            - "3306:3306"
         volumes:
-          - /data/var/lib/mysql:/var/lib/mysql
-          - /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+            - /data/var/lib/mysql:/var/lib/mysql
+            - /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
         environment:
-          MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
         networks:
-          - lnmp
+            lnmp-network:
+                aliases:
+                    - mysql
         restart: always
     nginx:
         build: ./app/nginx
         container_name: docker-nginx
         depends_on:
-          - php-fpm
+            - php-fpm
         ports:
-          - "80:80"
-          - "443:443"
+            - "80:80"
+            - "443:443"
         volumes:
-          - /data/var/www:/var/www/html
-          - /data/var/etc/nginx/conf.d:/etc/nginx/conf.d
-          - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
-          - /data/var/log/nginx:/var/log/nginx
-        links:
-          - php-fpm:php-fpm
+            - /data/var/www:/var/www/html
+            - /data/var/etc/nginx/conf.d:/etc/nginx/conf.d
+            - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - /data/var/log/nginx:/var/log/nginx
         networks:
-          - lnmp
+            lnmp-network:
+                aliases:
+                    - nginx
         restart: always
     php-fpm:
         build: ./app/php
         container_name: docker-php
         depends_on:
-          - mysql
-          - redis
+            - mysql
+            - redis
         ports:
-            - "9000:9000"
+              - "9000:9000"
         volumes:
-            - /data/var/www:/var/www/html
-            - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
-        links:
-          - redis:redis
-          - mysql:mysql
+              - /data/var/www:/var/www/html
+              - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
         networks:
-            - lnmp
+              lnmp-network:
+                aliases:
+                    - php-fpm
         restart: always
     redis:
         build: ./app/redis
         container_name: docker-redis
         ports:
-            - "6379:6379"
+              - "6379:6379"
         volumes:
-            - /data/var/lib/redis:/data
-            - /data/var/etc/redis/redis.conf:/etc/redis.conf
+              - /data/var/lib/redis:/data
+              - /data/var/etc/redis/redis.conf:/etc/redis.conf
         networks:
-            - lnmp
+              lnmp-network:
+              aliases:
+                    - redis
         restart: always
 networks:
-  lnmp:
-    driver: bridge
+    lnmp-network:
+        driver: bridge
