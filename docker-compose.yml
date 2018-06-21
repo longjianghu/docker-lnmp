@@ -11,9 +11,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: 123456
         networks:
-            lnmp-network:
-                aliases:
-                    - mysql
+            - lnmp-network
         restart: always
     nginx:
         build: ./app/nginx
@@ -28,10 +26,10 @@ services:
             - /data/var/etc/nginx/conf.d:/etc/nginx/conf.d
             - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             - /data/var/log/nginx:/var/log/nginx
+        links:
+            - php-fpm:php-fpm
         networks:
-            lnmp-network:
-                aliases:
-                    - nginx
+            - lnmp-network
         restart: always
     php-fpm:
         build: ./app/php
@@ -40,27 +38,26 @@ services:
             - mysql
             - redis
         ports:
-              - "9000:9000"
+            - "9000:9000"
         volumes:
-              - /data/var/www:/var/www/html
-              - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
+            - /data/var/www:/var/www/html
+            - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
+        links:
+            - redis:redis
+            - mysql:mysql
         networks:
-            lnmp-network:
-                aliases:
-                    - php-fpm
+            - lnmp-network
         restart: always
     redis:
         build: ./app/redis
         container_name: docker-redis
         ports:
-              - "6379:6379"
+            - "6379:6379"
         volumes:
-              - /data/var/lib/redis:/data
-              - /data/var/etc/redis/redis.conf:/etc/redis.conf
+            - /data/var/lib/redis:/data
+            - /data/var/etc/redis/redis.conf:/etc/redis.conf
         networks:
-            lnmp-network:
-                aliases:
-                    - redis
+            - lnmp-network
         restart: always
 networks:
     lnmp-network:
