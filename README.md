@@ -44,7 +44,7 @@ docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/e
 
 Mongo:
 
-docker run --name mongo -p 27017:27017 -v /data/var/etc/mongo/mongod.cnf:/etc/mongod.conf -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d docker-mongo:3.4
+docker run --name docker-mongo -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d docker-mongo:3.4
 
 Redis:
 
