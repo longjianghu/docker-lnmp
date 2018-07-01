@@ -1,6 +1,6 @@
 ### 项目说明
 
-当前项目仅用于学习目的，请勿用于生产环境。
+LNMP代表的是Linux下Nginx、MySQL、PHP这种网站服务器架构。
 
 ### 安装 Docker
 
@@ -36,7 +36,7 @@ docker build -t docker-redis:4.0 ./app/redis/
 
 docker build -t docker-nginx:1.14 ./app/nginx/
 
-### MySQL容器运行方法
+### 容器运行方法
 
 MySQL:
 
