@@ -26,8 +26,6 @@ services:
             - /data/var/etc/nginx/conf.d:/etc/nginx/conf.d
             - /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
             - /data/var/log/nginx:/var/log/nginx
-        links:
-            - php-fpm:php-fpm
         networks:
             - lnmp-network
         restart: always
@@ -42,9 +40,6 @@ services:
         volumes:
             - /data/var/www:/var/www/html
             - /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini
-        links:
-            - redis:redis
-            - mysql:mysql
         networks:
             - lnmp-network
         restart: always

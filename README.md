@@ -52,8 +52,8 @@ docker run --name docker-redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/e
 
 PHP:
 
-docker run --name docker-php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html --link docker-redis:redis --link docker-mysql:mysql -d docker-php:7.2
+docker run --name docker-php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d docker-php:7.2
 
 Nginx:
 
-docker run --name docker-nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ --link docker-php:php-fpm -d docker-nginx:1.14
+docker run --name docker-nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d docker-nginx:1.14
