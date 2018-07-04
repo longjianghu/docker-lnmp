@@ -26,7 +26,7 @@ composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 ### 构建容器
 
-docker build -t docker-mysql:8.0 ./app/mysql/
+docker build -t docker-mysql:5.7 ./app/mysql/
 
 docker build -t docker-mongo:4.0 ./app/mongo/
 
@@ -40,7 +40,7 @@ docker build -t docker-nginx:1.14 ./app/nginx/
 
 MySQL:
 
-docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker-mysql:8.0
+docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker-mysql:5.7
 
 Mongo:
 

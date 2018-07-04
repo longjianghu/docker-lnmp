@@ -1,4 +1,4 @@
-FROM mysql:8.0
+FROM mysql:5.7
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
