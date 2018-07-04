@@ -26,9 +26,9 @@ composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 ### 构建容器
 
-docker build -t docker-mysql:5.7 ./app/mysql/
+docker build -t docker-mysql:8.0 ./app/mysql/
 
-docker build -t docker-mongo:3.4 ./app/mongo/
+docker build -t docker-mongo:4.0 ./app/mongo/
 
 docker build -t docker-php:7.2 ./app/php/
 
@@ -40,11 +40,11 @@ docker build -t docker-nginx:1.14 ./app/nginx/
 
 MySQL:
 
-docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker-mysql:5.7
+docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker-mysql:8.0
 
 Mongo:
 
-docker run --name docker-mongo -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d docker-mongo:3.4
+docker run --name docker-mongo -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d docker-mongo:4.0
 
 Redis:
 
