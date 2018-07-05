@@ -36,4 +36,4 @@ RUN rm /var/cache/apk/* -rf \
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
-RUN chmod a+x /usr/bin/composer
+RUN chmod a+x /usr/bin/composer && su www-data -c "composer config -g repo.packagist composer https://packagist.phpcomposer.com"
