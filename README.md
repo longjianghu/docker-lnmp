@@ -22,7 +22,9 @@ pip install docker-compose
 
 ### 更换 Composer 镜像
 
-composer config -g repo.packagist composer https://packagist.phpcomposer.com
+进入PHP容器内执行
+
+su www-data -c "composer config -g repo.packagist composer https://packagist.phpcomposer.com"
 
 ### 构建容器
 
