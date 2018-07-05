@@ -8,7 +8,7 @@ RUN apk update
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp libpng libjpeg freetype \
-    freetype-dev curl-dev libpng-dev jpeg-dev gmp-dev libzip-dev \
+    freetype-dev curl-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev\
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip curl gmp opcache pdo_mysql mysqli
@@ -36,4 +36,4 @@ RUN rm /var/cache/apk/* -rf \
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
-RUN chmod a+x /usr/bin/composer
+RUN chmod a+x /usr/bin/composer && su www-data -c "composer config -g repo.packagist composer https://packagist.phpcomposer.com"
