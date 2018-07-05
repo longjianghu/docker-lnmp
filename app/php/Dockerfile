@@ -18,6 +18,9 @@ COPY ./src/redis-4.0.2.tgz /tmp/redis-4.0.2.tgz
 COPY ./src/swoole-4.0.0.tgz /tmp/swoole-4.0.0.tgz
 COPY ./src/mongodb-1.5.0.tgz /tmp/mongodb-1.5.0.tgz
 
+COPY ./extensions/tideways.ini /usr/local/etc/php/conf.d
+COPY ./extensions/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718
+
 RUN pecl install /tmp/redis-4.0.2.tgz && pecl install /tmp/swoole-4.0.0.tgz \
     && pecl install /tmp/mongodb-1.5.0.tgz \
     && docker-php-ext-enable redis swoole mongodb
