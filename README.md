@@ -28,34 +28,34 @@ su www-data -c "composer config -g repo.packagist composer https://packagist.php
 
 ### 构建容器
 
-docker build -t mysql80 ./app/mysql/
+docker build -t mysql:80 ./app/mysql/
 
-docker build -t mongo40 ./app/mongo/
+docker build -t mongo:40 ./app/mongo/
 
-docker build -t php72 ./app/php/
+docker build -t php:72 ./app/php/
 
-docker build -t redis40 ./app/redis/
+docker build -t redis:40 ./app/redis/
 
-docker build -t nginx114 ./app/nginx/
+docker build -t nginx:114 ./app/nginx/
 
 ### 容器运行方法
 
 MySQL:
 
-docker run --name mysql80 -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql80
+docker run --name mysql80 -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:80
 
 Mongo:
 
-docker run --name mongo40 -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongo40
+docker run --name mongo40 -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongo:40
 
 Redis:
 
-docker run --name redis40 -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis40
+docker run --name redis40 -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:40
 
 PHP:
 
-docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d php72
+docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d php:72
 
 Nginx:
 
-docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx114
+docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:114
