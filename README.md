@@ -28,34 +28,34 @@ su www-data -c "composer config -g repo.packagist composer https://packagist.php
 
 ### 构建容器
 
-docker build -t docker-mysql:5.7 ./app/mysql/
+docker build -t mysql80 ./app/mysql/
 
-docker build -t docker-mongo:4.0 ./app/mongo/
+docker build -t mongo40 ./app/mongo/
 
-docker build -t docker-php:7.2 ./app/php/
+docker build -t php72 ./app/php/
 
-docker build -t docker-redis:4.0 ./app/redis/
+docker build -t redis40 ./app/redis/
 
-docker build -t docker-nginx:1.14 ./app/nginx/
+docker build -t nginx114 ./app/nginx/
 
 ### 容器运行方法
 
 MySQL:
 
-docker run --name docker-mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d docker-mysql:5.7
+docker run --name mysql80 -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql80
 
 Mongo:
 
-docker run --name docker-mongo -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d docker-mongo:4.0
+docker run --name mongo40 -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongo40
 
 Redis:
 
-docker run --name docker-redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d docker-redis:4.0
+docker run --name redis40 -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis40
 
 PHP:
 
-docker run --name docker-php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d docker-php:7.2
+docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d php72
 
 Nginx:
 
-docker run --name docker-nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d docker-nginx:1.14
+docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx114
