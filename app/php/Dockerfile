@@ -36,7 +36,4 @@ RUN rm /var/cache/apk/* -rf \
 
 # Composer
 COPY ./composer.phar /usr/bin/composer
-COPY ./docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
-
-RUN chmod a+x /usr/bin/composer \
-    && chmod a+x /usr/local/bin/docker-php-entrypoint
+RUN chmod a+x /usr/bin/composer
