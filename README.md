@@ -59,3 +59,7 @@ docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc
 Nginx:
 
 docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:114
+
+PHPMyadmin：
+
+docker run --name phpmyadmin -p 8080:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/phpmyadmin
