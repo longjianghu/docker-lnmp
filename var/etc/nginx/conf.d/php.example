@@ -1,15 +1,11 @@
 server {
     listen       80;
-    server_name  domain;
+    server_name  www.example.com;
 
     root /var/www/html/;
 
-    #access_log /var/log/nginx/domain.access.log main;
-    #error_log  /var/log/nginx/domain.error.log warn;
-
-    #ssl on;
-    #ssl_certificate /etc/nginx/conf.d/ssl/domain.crt;
-    #ssl_certificate_key /etc/nginx/conf.d/ssl/domain.key;
+    #access_log /var/log/nginx/www.example.com.access.log main;
+    #error_log  /var/log/nginx/www.example.com.error.log warn;
 
     location / {
         index index.php index.html index.htm;
