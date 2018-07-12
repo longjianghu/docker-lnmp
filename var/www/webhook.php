@@ -1,5 +1,4 @@
 <?php
-
 /**
  * WebHook
  *
@@ -20,13 +19,13 @@ try {
 	$password = (isset($_GET['password'])) ? $_GET['password'] : ''; // 验证密码
 
 	if (empty($path)) {
-		throw new \Exception('存储路径不能为空！');
+		throw new \Exception('存码存放目录不能为空！');
 	}
 
 	$path = sprintf('%s/%s', getcwd(), ltrim($path));
 
 	if ( ! is_dir($path)) {
-		@mkdir($path);
+		throw new \Exception('指定的目录不存在！');
 	}
 
 	if (empty($password)) {
