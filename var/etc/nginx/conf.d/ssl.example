@@ -11,7 +11,7 @@ server {
     listen [::]:443 ssl;
     server_name www.example.com;
 
-    root /var/www/html/www.example.com;
+    root /var/www/www.example.com;
 
     #access_log /var/log/nginx/www.example.com.access.log main;
     #error_log  /var/log/nginx/www.example.com.error.log warn;

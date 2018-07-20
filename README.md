@@ -36,7 +36,7 @@ docker build -t php:72 ./app/php/
 
 docker build -t redis:40 ./app/redis/
 
-docker build -t nginx:114 ./app/nginx/
+docker build -t nginx:115 ./app/nginx/
 
 ### 容器运行方法
 
@@ -58,11 +58,11 @@ docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc
 
 Nginx:
 
-docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:114
+docker run --name nginx115 -p 80:80 -p 443:443 -v /data/var/www:/var/www -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
 使用let’s encrypt证书
 
-docker run --name nginx114 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /etc/letsencrypt:/etc/letsencrypt -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:114
+docker run --name nginx115 -p 80:80 -p 443:443 -v /data/var/www:/var/www -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /etc/letsencrypt:/etc/letsencrypt -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
 PHPMyadmin：
 
