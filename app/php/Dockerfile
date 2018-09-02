@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.2-fpm-alpine3.7
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
