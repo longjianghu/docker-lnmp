@@ -54,7 +54,7 @@ docker run --name redis40 -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/re
 
 PHP:
 
-docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -d php:72
+docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:72
 
 Nginx:
 
