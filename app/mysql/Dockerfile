@@ -6,7 +6,4 @@ MAINTAINER Longjianghu <215241062@qq.com>
 ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
-
-RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
