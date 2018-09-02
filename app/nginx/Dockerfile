@@ -1,9 +1,9 @@
-FROM nginx:1.14-alpine
+FROM nginx:1.15.1-alpine
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换源
-COPY ./source.list /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk update
 
 # 时区设置

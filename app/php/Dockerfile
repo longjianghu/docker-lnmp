@@ -3,7 +3,7 @@ FROM php:7.2-fpm-alpine
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换源
-COPY ./source.list /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk update
 
 # 安装基础扩展

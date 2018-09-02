@@ -15,7 +15,7 @@ services:
         restart: always
     nginx:
         build: ./app/nginx
-        container_name: nginx:114
+        container_name: nginx:115
         depends_on:
             - php-fpm
         ports:
@@ -51,6 +51,16 @@ services:
         volumes:
             - /data/var/lib/redis:/data
             - /data/var/etc/redis/redis.conf:/etc/redis.conf
+        networks:
+            - lnmp-network
+        restart: always
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - "8080:80"
+        environment:
+            PMA_HOST: 172.17.0.1
         networks:
             - lnmp-network
         restart: always
