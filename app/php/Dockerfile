@@ -20,7 +20,7 @@ RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip lib
 
 # 安装增强扩展
 COPY ./src/* /tmp/
-COPY ./composer.phar /usr/bin/composer
+COPY ./composer.phar /usr/local/bin/composer
 
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/swoole-${SWOOLE_VERSION}.tgz \
@@ -40,4 +40,4 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 RUN rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
-    && chmod a+x /usr/bin/composer
+    && chmod a+x /usr/local/bin/composer

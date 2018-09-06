@@ -34,6 +34,8 @@ docker build -t mongo:40 ./app/mongo/
 
 docker build -t php:72 ./app/php/
 
+docker build -t php-cli:72 ./app/php-cli/
+
 docker build -t redis:40 ./app/redis/
 
 docker build -t nginx:115 ./app/nginx/
@@ -67,3 +69,9 @@ docker run --name nginx115 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v
 PHPMyadmin：
 
 docker run --name phpmyadmin -p 8080:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/phpmyadmin
+
+Swoft:
+
+docker run --rm -v /data/var/www/swoft:/data -d php-cli:72 composer install -d /data
+
+docker run --name swoft -p 8080:80 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www/swoft:/data -d php-cli:72 php /data/bin/swoft start
