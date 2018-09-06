@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine3.7
+FROM php:7.2-fpm-alpine3.8
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -9,7 +9,6 @@ RUN apk update
 ENV REDIS_VERSION 4.1.1
 ENV MONGODB_VERSION 1.5.2
 ENV IMAGICK_VERSION 3.4.3
-ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.1.2
 
 # 安装基础扩展
@@ -27,8 +26,7 @@ RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/swoole-${SWOOLE_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && pecl install /tmp/inotify-${INOTIFY_VERSION}.tgz \
-    && docker-php-ext-enable redis swoole mongodb imagick inotify
+    && docker-php-ext-enable redis swoole mongodb imagick
 
 # Tideways(PHP性能监控)
 COPY ./extensions/tideways.ini /usr/local/etc/php/conf.d
