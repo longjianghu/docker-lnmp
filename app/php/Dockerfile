@@ -10,7 +10,6 @@ ENV REDIS_VERSION 4.1.1
 ENV MONGODB_VERSION 1.5.2
 ENV IMAGICK_VERSION 3.4.3
 ENV INOTIFY_VERSION 2.0.0
-ENV HIREDIS_VERSION 0.13.3
 ENV SWOOLE_VERSION 4.1.2
 
 # 安装基础扩展
@@ -31,13 +30,6 @@ RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/inotify-${INOTIFY_VERSION}.tgz \
     && docker-php-ext-enable redis swoole mongodb imagick inotify
 
-# 编译安装 hiredis
-RUN mkdir /tmp/hiredis && tar -zxf /tmp/hiredis-${HIREDIS_VERSION}.tar.gz -C /tmp/hiredis --strip-components=1 \
-    && ( \
-        cd /tmp/hiredis \
-        && make -j$(nproc) && make install \
-    ) 
-
 # Tideways(PHP性能监控)
 COPY ./extensions/tideways.ini /usr/local/etc/php/conf.d
 COPY ./extensions/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718
@@ -49,7 +41,5 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 # 清除垃圾文件
 RUN rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
-    && rm /tmp/* -rf
-
-# Composer
-RUN chmod a+x /usr/bin/composer
+    && rm /tmp/* -rf \
+    RUN chmod a+x /usr/bin/composer
