@@ -40,4 +40,4 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 RUN rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
-    RUN chmod a+x /usr/bin/composer
+    && chmod a+x /usr/bin/composer
