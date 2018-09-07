@@ -26,6 +26,8 @@ pip install docker-compose
 
 su www-data -c "composer config -g repo.packagist composer https://packagist.phpcomposer.com"
 
+Mac和Windows挂载导致性能低下可以使用docker-sync方案 https://github.com/EugenMayer/docker-sync
+
 ### 构建容器
 
 docker build -t mysql:80 ./app/mysql/
