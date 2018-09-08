@@ -74,4 +74,4 @@ Swoft:
 
 docker run --rm -v /data/var/www/swoft:/data -d php-cli:72 composer install -d /data
 
-docker run --name swoft -p 8080:80 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www/swoft:/data -d php-cli:72 php /data/bin/swoft start
+docker run --name swoft -p 9001:80 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www/swoft:/data -d php-cli:72 php /data/bin/swoft start

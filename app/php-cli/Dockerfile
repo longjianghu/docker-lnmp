@@ -39,3 +39,5 @@ RUN rm /var/cache/apk/* -rf \
     && chmod a+x /usr/local/bin/composer
 
 EXPOSE 80
+
+CMD ["/bin/sh"]

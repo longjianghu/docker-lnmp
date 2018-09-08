@@ -1,0 +1,33 @@
+server
+{
+    listen       80;
+    server_name  www.example.com;
+
+	#access_log /var/log/nginx/www.example.com.access.log main;
+    #error_log  /var/log/nginx/www.example.com.error.log warn;
+
+    location / {
+        proxy_pass http://172.17.0.1:9001;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires    30d;
+        access_log off;
+    }
+
+    location ~ .*\.(js|css)?$
+    {
+        expires    12h;
+        access_log off;
+    }
+
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+    }
+
+    location ~ /\.
+    {
+        deny  all;
+    }
+}
