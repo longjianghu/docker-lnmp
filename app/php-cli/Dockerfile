@@ -40,7 +40,7 @@ RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /t
     ) \
     && docker-php-ext-enable swoole
 
-# Redis/imagick/inotify
+# Redis/Imagick/Inotify
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && pecl install /tmp/inotify-${INOTIFY_VERSION}.tgz \
