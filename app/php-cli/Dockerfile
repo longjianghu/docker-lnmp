@@ -10,10 +10,11 @@ ENV REDIS_VERSION 4.1.1
 ENV IMAGICK_VERSION 3.4.3
 ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.1.2
+ENV HIREDIS_VERSION 0.13.3
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp git libpng libjpeg freetype imagemagick \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev imagemagick-dev imagemagick-libs \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev imagemagick-libs \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif
@@ -22,11 +23,28 @@ RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip lib
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
 
+# Hiredis
+RUN mkdir /tmp/hiredis && tar -zxf /tmp/hiredis-${HIREDIS_VERSION}.tar.gz -C /tmp/hiredis --strip-components=1 \
+    && ( \
+        cd /tmp/hiredis \
+        && make -j$(nproc) && make install \
+    ) 
+
+# Swoole
+RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
+    && ( \
+        cd /tmp/swoole \
+        && phpize \
+        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
+        && make -j$(nproc) && make install \
+    ) \
+    && docker-php-ext-enable swoole
+
+# Redis/imagick/inotify
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
-    && pecl install /tmp/swoole-${SWOOLE_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && pecl install /tmp/inotify-${INOTIFY_VERSION}.tgz \
-    && docker-php-ext-enable redis swoole imagick inotify
+    && docker-php-ext-enable redis imagick inotify
 
 # 时区设置
 ENV TIMEZONE Asia/Shanghai
