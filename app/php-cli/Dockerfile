@@ -1,4 +1,4 @@
-FROM php:7.2-cli-alpine3.8
+FROM php:7.2.11-fpm-alpine3.8
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -31,7 +31,7 @@ RUN mkdir /tmp/hiredis && tar -zxf /tmp/hiredis-${HIREDIS_VERSION}.tar.gz -C /tm
     ) 
 
 # Swoole
-RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
+RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \
         cd /tmp/swoole \
         && phpize \
