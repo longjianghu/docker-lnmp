@@ -9,7 +9,7 @@ RUN apk update
 ENV REDIS_VERSION 4.1.1
 ENV MONGODB_VERSION 1.5.2
 ENV IMAGICK_VERSION 3.4.3
-ENV SWOOLE_VERSION 4.1.2
+ENV SWOOLE_VERSION 4.2.5
 ENV HIREDIS_VERSION 0.13.3
 
 # 安装基础扩展
@@ -31,7 +31,7 @@ RUN mkdir /tmp/hiredis && tar -zxf /tmp/hiredis-${HIREDIS_VERSION}.tar.gz -C /tm
     ) 
 
 # Swoole
-RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
+RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \
         cd /tmp/swoole \
         && phpize \
