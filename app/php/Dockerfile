@@ -35,7 +35,7 @@ RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /t
     && ( \
         cd /tmp/swoole \
         && phpize \
-        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
+        && ./configure --enable-coroutine --enable-openssl --enable-http2 --enable-async-redis --enable-sockets --enable-mysqlnd \
         && make -j$(nproc) && make install \
     ) \
     && docker-php-ext-enable swoole
