@@ -1,4 +1,4 @@
-FROM php:7.2.11-fpm-alpine3.8
+FROM php:7.2.11-cli-alpine3.8
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -11,13 +11,14 @@ ENV IMAGICK_VERSION 3.4.3
 ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.2.5
 ENV HIREDIS_VERSION 0.13.3
+ENV GEARMAND_VERSION 2.0.5
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp git libpng libjpeg freetype imagemagick \
     freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev imagemagick-libs \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif
+    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
 
 # 安装增强扩展
 COPY ./src/* /tmp/
