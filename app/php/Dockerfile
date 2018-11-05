@@ -17,7 +17,7 @@ RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip lib
     freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev imagemagick-libs \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif
+    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
 
 # 安装增强扩展
 COPY ./src/* /tmp/
