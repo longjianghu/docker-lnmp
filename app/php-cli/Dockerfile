@@ -11,7 +11,6 @@ ENV IMAGICK_VERSION 3.4.3
 ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.2.5
 ENV HIREDIS_VERSION 0.13.3
-ENV GEARMAND_VERSION 2.0.5
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp git libpng libjpeg freetype imagemagick \
