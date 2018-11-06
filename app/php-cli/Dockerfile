@@ -3,7 +3,8 @@ FROM php:7.2.11-cli-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && echo 'http://mirrors.ustc.edu.cn/alpine/edge/testing/' >> /etc/apk/repositories
 RUN apk update
 
 ENV REDIS_VERSION 4.1.1
@@ -11,10 +12,11 @@ ENV IMAGICK_VERSION 3.4.3
 ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.2.5
 ENV HIREDIS_VERSION 0.13.3
+ENV GEARMAN_VERSION 2.0.5
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp git libpng libjpeg freetype imagemagick \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev imagemagick-libs \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev gearman-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
@@ -40,6 +42,16 @@ RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /t
     ) \
     && docker-php-ext-enable swoole
 
+# Gearman
+RUN mkdir /tmp/gearman && tar -zxf /tmp/gearman-${GEARMAN_VERSION}.tar.gz -C /tmp/gearman --strip-components=1 \
+    && ( \
+        cd /tmp/gearman \
+        && phpize \
+        && ./configure --with-php-config=/usr/local/bin/php-config \
+        && make -j$(nproc) && make install \
+    ) \
+    && docker-php-ext-enable gearman
+
 # Redis/Imagick/Inotify
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
@@ -51,7 +63,8 @@ ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 # 清除垃圾文件
-RUN rm /var/cache/apk/* -rf \
+RUN apk del --purge *-dev \
+    && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
