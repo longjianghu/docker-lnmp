@@ -3,18 +3,19 @@ FROM php:7.2.11-fpm-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && echo 'http://mirrors.ustc.edu.cn/alpine/edge/testing/' >> /etc/apk/repositories
 RUN apk update
 
+ENV TIMEZONE Asia/Shanghai
 ENV REDIS_VERSION 4.1.1
 ENV MONGODB_VERSION 1.5.2
 ENV IMAGICK_VERSION 3.4.3
-ENV SWOOLE_VERSION 4.2.5
-ENV HIREDIS_VERSION 0.13.3
+ENV SWOOLE_VERSION 4.2.6
 
 # 安装基础扩展
-RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip libstdc++ gmp git libpng libjpeg freetype imagemagick \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
+RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev gearman-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
@@ -22,13 +23,6 @@ RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf libzip lib
 # 安装增强扩展
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
-
-# Hiredis
-RUN mkdir /tmp/hiredis && tar -zxf /tmp/hiredis-${HIREDIS_VERSION}.tar.gz -C /tmp/hiredis --strip-components=1 \
-    && ( \
-        cd /tmp/hiredis \
-        && make -j$(nproc) && make install \
-    ) 
 
 # Swoole
 RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
@@ -40,18 +34,17 @@ RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /t
     ) \
     && docker-php-ext-enable swoole
 
-# Redis/Mongodb/Imagick
+# Redis / Mongodb / Imagick
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable redis mongodb imagick
 
-# Tideways(PHP性能监控)
-COPY ./extensions/tideways.ini /usr/local/etc/php/conf.d
-COPY ./extensions/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718
+# Tideways
+COPY ./extensions/ini/tideways.ini /usr/local/etc/php/conf.d/
+COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
 
 # 时区设置
-ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 # 清除垃圾文件
