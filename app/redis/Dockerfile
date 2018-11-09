@@ -13,3 +13,8 @@ ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 CMD ["redis-server","/etc/redis.conf"]
+
+# 清除垃圾文件
+RUN apk del --purge *-dev \
+    && rm /var/cache/apk/* -rf \
+    && rm /usr/src/* -rf

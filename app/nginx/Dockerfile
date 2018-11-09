@@ -1,4 +1,4 @@
-FROM nginx:1.15.5-alpine
+FROM nginx:1.15.6-alpine
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -11,3 +11,8 @@ RUN apk add --no-cache --virtual tzdata
 
 ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
+# 清除垃圾文件
+RUN apk del --purge *-dev \
+    && rm /var/cache/apk/* -rf \
+    && rm /usr/src/* -rf
