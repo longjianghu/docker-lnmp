@@ -3,9 +3,7 @@ FROM php:7.2.11-fpm-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && echo 'http://mirrors.ustc.edu.cn/alpine/edge/testing/' >> /etc/apk/repositories
-RUN apk update
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update
 
 ENV TIMEZONE Asia/Shanghai
 ENV REDIS_VERSION 4.1.1

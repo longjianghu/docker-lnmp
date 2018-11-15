@@ -4,8 +4,7 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && echo 'http://mirrors.aliyun.com/alpine/edge/testing/' >> /etc/apk/repositories
-RUN apk update
+    && echo 'http://mirrors.aliyun.com/alpine/edge/testing/' >> /etc/apk/repositories && apk update
 
 # 环境配置
 ENV TIMEZONE Asia/Shanghai
