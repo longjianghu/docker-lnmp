@@ -3,15 +3,15 @@ FROM php:7.2.11-cli-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
-    && echo 'http://mirrors.ustc.edu.cn/alpine/edge/testing/' >> /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+    && echo 'http://mirrors.aliyun.com/alpine/edge/testing/' >> /etc/apk/repositories
 RUN apk update
 
 # 环境配置
 ENV TIMEZONE Asia/Shanghai
 ENV REDIS_VERSION 4.1.1
+ENV MONGODB_VERSION 1.5.2
 ENV IMAGICK_VERSION 3.4.3
-ENV INOTIFY_VERSION 2.0.0
 ENV SWOOLE_VERSION 4.2.6
 ENV GEARMAN_VERSION 2.0.5
 
@@ -44,11 +44,11 @@ RUN mkdir /tmp/gearman && tar -zxf /tmp/gearman-${GEARMAN_VERSION}.tar.gz -C /tm
     ) \
     && docker-php-ext-enable swoole gearman
 
-# Redis / Imagick / Inotify
+# Redis / Mongodb / Imagick
 RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
+    && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && pecl install /tmp/inotify-${INOTIFY_VERSION}.tgz \
-    && docker-php-ext-enable redis imagick inotify
+    && docker-php-ext-enable redis imagick mongodb
 
 # 时区设置
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone

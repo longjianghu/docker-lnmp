@@ -3,7 +3,7 @@ FROM php:7.2.11-fpm-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && echo 'http://mirrors.ustc.edu.cn/alpine/edge/testing/' >> /etc/apk/repositories
 RUN apk update
 
@@ -15,7 +15,7 @@ ENV SWOOLE_VERSION 4.2.6
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev gearman-dev imagemagick-dev \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
