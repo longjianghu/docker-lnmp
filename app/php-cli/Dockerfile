@@ -4,15 +4,15 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && echo 'http://mirrors.aliyun.com/alpine/edge/testing/' >> /etc/apk/repositories && apk update
+    && echo 'http://mirrors.aliyun.com/alpine/edge/testing' >> /etc/apk/repositories && apk update
 
 # 环境配置
-ENV TIMEZONE Asia/Shanghai
-ENV REDIS_VERSION 4.1.1
-ENV MONGODB_VERSION 1.5.2
-ENV IMAGICK_VERSION 3.4.3
-ENV SWOOLE_VERSION 4.2.6
-ENV GEARMAN_VERSION 2.0.5
+ENV TIMEZONE Asia/Shanghai \
+    REDIS_VERSION 4.1.1 \
+    MONGODB_VERSION 1.5.2 \
+    IMAGICK_VERSION 3.4.3 \
+    SWOOLE_VERSION 4.2.7 \
+    GEARMAN_VERSION 2.0.5
 
 # 安装基础扩展
 RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
@@ -50,5 +50,7 @@ RUN apk del --purge *-dev \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
+
+EXPOSE 80 8099
 
 CMD ['/bin/sh']
