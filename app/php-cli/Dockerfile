@@ -3,8 +3,7 @@ FROM php:7.2.12-cli-alpine3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 # 更换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && echo 'http://mirrors.aliyun.com/alpine/edge/testing' >> /etc/apk/repositories && apk update
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update
 
 # 环境配置
 ENV TIMEZONE=Asia/Shanghai \
