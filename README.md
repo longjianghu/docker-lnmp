@@ -32,11 +32,13 @@ Mac和Windows挂载导致性能低下可以使用docker-sync方案 https://githu
 
 docker build -t mysql:80 ./app/mysql/
 
-docker build -t mongo:40 ./app/mongo/
+docker build -t mongodb:40 ./app/mongodb/
 
 docker build -t php:72 ./app/php/
 
-docker build -t php-cli:72 ./app/php-cli/
+docker build -t php-cli:alpine ./app/php-cli/
+
+docker build -t php-cli:stretch ./app/php-stretch/
 
 docker build -t redis:40 ./app/redis/
 
@@ -46,34 +48,34 @@ docker build -t nginx:115 ./app/nginx/
 
 MySQL:
 
-docker run --name mysql80 -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:80
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:80
 
-Mongo:
+Mongodb:
 
-docker run --name mongo40 -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongo:40
+docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongodb:40
 
 Redis:
 
-docker run --name redis40 -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:40
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:40
 
 PHP:
 
-docker run --name php72 -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:72
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:72
 
 Nginx:
 
-docker run --name nginx115 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
 使用let’s encrypt证书
 
-docker run --name nginx115 -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /etc/letsencrypt:/etc/letsencrypt -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /etc/letsencrypt:/etc/letsencrypt -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
 PHPMyadmin：
 
-docker run --name phpmyadmin -p 8080:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/phpmyadmin
+docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/phpmyadmin
 
 Swoft:
 
-docker run --rm -v /data/var/www/swoft:/data -d php-cli:72 composer install -d /data
+docker run --rm -v /data/var/www/swoft:/data -d php-cli:alpine composer install -d /data
 
-docker run --name swoft -p 9001:80 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www/swoft:/data -d php-cli:72 php /data/bin/swoft start
+docker run --name swoft -p 8080:80 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www/swoft:/data -d php-cli:alpine php /data/bin/swoft start
