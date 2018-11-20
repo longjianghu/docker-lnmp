@@ -36,9 +36,9 @@ docker build -t mongodb:40 ./app/mongodb/
 
 docker build -t php:72 ./app/php/
 
-docker build -t php-cli:alpine ./app/php-cli/
+docker build -t php-cli:72 ./app/php-cli/
 
-docker build -t php-cli:stretch ./app/php-stretch/
+docker build -t php-cli:alpine ./app/php-alpine/
 
 docker build -t redis:40 ./app/redis/
 
