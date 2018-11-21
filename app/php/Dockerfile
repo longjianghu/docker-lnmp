@@ -11,36 +11,31 @@ ENV TIMEZONE=Asia/Shanghai \
     IMAGICK_VERSION=3.4.3 \
     SWOOLE_VERSION=4.2.7
 
-# 安装基础扩展
-RUN apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
+# 安装扩展
+COPY ./src/* /tmp/
+COPY ./composer.phar /usr/local/bin/composer
+COPY ./extensions/ini/tideways.ini /usr/local/etc/php/conf.d/
+COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
+
+RUN set -xe \
+    && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
     freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets
-
-# 安装增强扩展
-COPY ./src/* /tmp/
-COPY ./composer.phar /usr/local/bin/composer
-
-# Swoole
-RUN mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
-    && ( \
-        cd /tmp/swoole \
-        && phpize \
-        && ./configure --enable-coroutine --enable-openssl --enable-http2 --enable-async-redis --enable-sockets --enable-mysqlnd \
-        && make -j$(nproc) && make install \
-    ) \
-    && docker-php-ext-enable swoole
-
-# Redis / Mongodb / Imagick
-RUN pecl install /tmp/redis-${REDIS_VERSION}.tgz \
+    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets \
+    && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
+        && ( \
+            cd /tmp/swoole \
+            && phpize \
+            && ./configure --enable-coroutine --enable-openssl --enable-http2 --enable-async-redis --enable-sockets --enable-mysqlnd \
+            && make -j$(nproc) && make install \
+            && rm /tmp/swoole* -rf \
+        ) \
+        && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable redis mongodb imagick
-
-# Tideways
-COPY ./extensions/ini/tideways.ini /usr/local/etc/php/conf.d/
-COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
+    && docker-php-ext-enable swoole redis mongodb imagick \
+    && apk del .build-deps
 
 # 时区设置
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
