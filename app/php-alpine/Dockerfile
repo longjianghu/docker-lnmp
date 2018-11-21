@@ -26,20 +26,20 @@ RUN set -xe \
         hiredis-dev \
         pcre-dev \
         tzdata \
-    && cd / && mkdir -p /tmp/gearmand \
+    && mkdir -p /tmp/gearmand \
     && tar -xzf /tmp/gearmand-${GEARMAND_VERSION}.tar.gz -C /tmp/gearmand --strip-components=1 \
     && ( \
         cd /tmp/gearmand \
         && patch -p1 < /tmp/libhashkit-common.h.patch \
         && patch -p1 < /tmp/libtest-cmdline.cc.patch \
         && ./configure && make -j$(nproc) && make install \
-		&& rm /tmp/gearmand* -rf \
+        && rm /tmp/gearmand* -rf \
     ) \
     && apk add php7 \
         php7-intl \
         php7-pcntl \
         php7-openssl \
-		php7-sockets \
+        php7-sockets \
         php7-dba \
         php7-sqlite3 \
         php7-tokenizer \
@@ -115,7 +115,7 @@ RUN set -xe \
         && ./configure --with-php-config=/usr/bin/php-config --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
         && make -j$(nproc) && make install \
         && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
-		&& rm /tmp/swoole* -rf \
+        && rm /tmp/swoole* -rf \
     ) \
     && ( \
         mkdir -p /tmp/gearman \
@@ -125,7 +125,7 @@ RUN set -xe \
         && ./configure \
         && make -j$(nproc) && make install \
         && echo "extension="gearman.so"" > /etc/php7/conf.d/gearman.ini \
-		&& rm /tmp/gearman* -rf \
+        && rm /tmp/gearman* -rf \
     )\
     && sed -i 's|^upload_max_filesize = 2M$|upload_max_filesize = 20M|' /etc/php7/php.ini \
     && sed -i 's|^post_max_size = 8M$|post_max_size = 20M|' /etc/php7/php.ini \

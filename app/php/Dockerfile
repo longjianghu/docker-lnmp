@@ -31,7 +31,7 @@ RUN set -xe \
             && make -j$(nproc) && make install \
             && rm /tmp/swoole* -rf \
         ) \
-        && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
+    && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable swoole redis mongodb imagick \
