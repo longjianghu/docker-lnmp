@@ -35,7 +35,7 @@ RUN set -xe \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable swoole redis mongodb imagick \
-    && apk del .build-deps --purge *-dev
+    && apk del --purge *-dev
 
 # 时区设置
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone

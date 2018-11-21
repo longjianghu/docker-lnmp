@@ -20,28 +20,10 @@ COPY ./composer.phar /usr/local/bin/composer
 
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev \
-    imagemagick-dev gperf boost-dev libevent-dev util-linux-dev \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets \
-    && mkdir -p /tmp/gearmand && tar -xzf /tmp/gearmand-${GEARMAND_VERSION}.tar.gz -C /tmp/gearmand --strip-components=1 \
-    && ( \
-        cd /tmp/gearmand \
-        && patch -p1 < /tmp/libhashkit-common.h.patch \
-        && patch -p1 < /tmp/libtest-cmdline.cc.patch \
-        && ./configure && make -j$(nproc) && make install \
-        && rm /tmp/gearmand* -rf \
-    ) \
-    && ( \
-        mkdir -p /tmp/gearman \
-        && tar -xf  /tmp/gearman-${GEARMAN_VERSION}.tar.gz -C /tmp/gearman  --strip-components=1 \
-        && cd /tmp/gearman \
-        && phpize \
-        && ./configure \
-        && make -j$(nproc) && make install \
-        && rm /tmp/gearman* -rf \
-    )\
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \
         cd /tmp/swoole \
@@ -53,9 +35,8 @@ RUN set -xe \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable gearman swoole redis mongodb imagick \
-    && apk del .build-deps --purge *-dev
+    && docker-php-ext-enable swoole redis mongodb imagick \
+    && apk del --purge *-dev
 
 # 时区设置
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
