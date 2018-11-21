@@ -35,14 +35,13 @@ RUN set -xe \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable swoole redis mongodb imagick \
-    && apk del .build-deps
+    && apk del .build-deps --purge *-dev
 
 # 时区设置
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
 # 清除垃圾文件
-RUN apk del --purge *-dev \
-    && rm /var/cache/apk/* -rf \
+RUN rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer

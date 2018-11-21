@@ -132,15 +132,14 @@ RUN set -xe \
     && sed -i 's|^;date.timezone =$|date.timezone = Asia/Shanghai|' /etc/php7/php.ini \
     && sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
     && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
-    && apk del .build-deps
+    && apk del .build-deps --purge *-dev
 
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # 清除垃圾文件
-RUN apk del --purge *-dev \
-    && rm /var/cache/apk/* -rf \
+RUN rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
