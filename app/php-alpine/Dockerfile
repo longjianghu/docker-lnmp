@@ -5,7 +5,8 @@ MAINTAINER Longjianghu <215241062@qq.com>
 ENV TIMEZONE=Asia/Shanghai \
     GEARMAND_VERSION=1.1.18 \
     GEARMAN_VERSION=2.0.5 \
-    SWOOLE_VERSION=4.2.7
+    SWOOLE_VERSION=4.2.7 \
+    MSGPACK_VERSION=2.0.2
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -33,7 +34,6 @@ RUN set -xe \
         && patch -p1 < /tmp/libhashkit-common.h.patch \
         && patch -p1 < /tmp/libtest-cmdline.cc.patch \
         && ./configure && make -j$(nproc) && make install \
-        && rm /tmp/gearmand* -rf \
     ) \
     && apk add php7 \
         php7-intl \
@@ -115,7 +115,6 @@ RUN set -xe \
         && ./configure --with-php-config=/usr/bin/php-config --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
         && make -j$(nproc) && make install \
         && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
-        && rm /tmp/swoole* -rf \
     ) \
     && ( \
         mkdir -p /tmp/gearman \
@@ -125,14 +124,22 @@ RUN set -xe \
         && ./configure \
         && make -j$(nproc) && make install \
         && echo "extension="gearman.so"" > /etc/php7/conf.d/gearman.ini \
-        && rm /tmp/gearman* -rf \
+    )\
+    && ( \
+        mkdir -p /tmp/msgpack \
+        && tar -xf  /tmp/msgpack-${MSGPACK_VERSION}.tar.gz -C /tmp/msgpack  --strip-components=1 \
+        && cd /tmp/msgpack \
+        && phpize \
+        && ./configure \
+        && make -j$(nproc) && make install \
+        && echo "extension="msgpack.so"" > /etc/php7/conf.d/msgpack.ini \
     )\
     && sed -i 's|^upload_max_filesize = 2M$|upload_max_filesize = 20M|' /etc/php7/php.ini \
     && sed -i 's|^post_max_size = 8M$|post_max_size = 20M|' /etc/php7/php.ini \
     && sed -i 's|^;date.timezone =$|date.timezone = Asia/Shanghai|' /etc/php7/php.ini \
     && sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
     && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
-    && apk del .build-deps --purge *-dev
+    && apk del .build-deps --purge *-dev && rm /tmp/* -rf
 
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
