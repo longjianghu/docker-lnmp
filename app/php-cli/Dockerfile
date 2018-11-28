@@ -12,7 +12,7 @@ ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=4.1.1 \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
-    SWOOLE_VERSION=4.2.7
+    SWOOLE_VERSION=4.2.9
 
 # 安装扩展
 COPY ./src/* /tmp/
