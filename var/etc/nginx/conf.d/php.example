@@ -43,10 +43,6 @@ server {
         access_log off;
     }
 
-    location ^~ /.well-known/acme-challenge/ {
-        default_type "text/plain";
-    }
-
     location ~ /\.
     {
         deny  all;

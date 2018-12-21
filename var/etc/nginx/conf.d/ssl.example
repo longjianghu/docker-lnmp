@@ -17,8 +17,8 @@ server {
     #error_log  /var/log/nginx/www.example.com.error.log warn;
 
     # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
-    ssl_certificate /etc/letsencrypt/live/www.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.example.com/privkey.pem;
+    ssl_certificate /etc/nginx/cert/www.example.com/fullchain.pem;
+    ssl_certificate_key /etc/nginx/cert/www.example.com/privkey.pem;
     ssl_session_timeout 1d;
     ssl_session_cache shared:SSL:50m;
 
@@ -64,10 +64,6 @@ server {
     {
         expires    12h;
         access_log off;
-    }
-
-    location ^~ /.well-known/acme-challenge/ {
-        default_type "text/plain";
     }
 
     location ~ /\.
