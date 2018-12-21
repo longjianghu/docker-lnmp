@@ -5,7 +5,7 @@ MAINTAINER Longjianghu <215241062@qq.com>
 ENV TIMEZONE=Asia/Shanghai \
     GEARMAND_VERSION=1.1.18 \
     GEARMAN_VERSION=2.0.5 \
-    SWOOLE_VERSION=4.2.9 \
+    SWOOLE_VERSION=4.2.10 \
     MSGPACK_VERSION=2.0.2
 
 COPY ./src/* /tmp/

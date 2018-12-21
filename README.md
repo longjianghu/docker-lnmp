@@ -32,11 +32,11 @@ Mac和Windows挂载导致性能低下可以使用docker-sync方案 https://githu
 
 docker build -t mysql:80 ./app/mysql/
 
-docker build -t mongodb:40 ./app/mongodb/
+docker build -t mongodb:41 ./app/mongodb/
 
-docker build -t php:72 ./app/php/
+docker build -t php:73 ./app/php/
 
-docker build -t php-cli:72 ./app/php-cli/
+docker build -t php-cli:73 ./app/php-cli/
 
 docker build -t php-cli:alpine ./app/php-alpine/
 
@@ -52,7 +52,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/master.cnf:/etc/mysq
 
 Mongodb:
 
-docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongodb:40
+docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongodb:41
 
 Redis:
 
@@ -60,15 +60,15 @@ docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redi
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:72
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:73
 
 Nginx:
 
 docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
-使用let’s encrypt证书
+使用let’s encrypt证书,免费证书[免费证书](https://github.com/Longjianghu/letsencrypt-dnspod "免费证书")
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /etc/letsencrypt:/etc/letsencrypt -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/etc/nginx/cert/:/etc/nginx/cert/ -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
 PHPMyadmin：
 
