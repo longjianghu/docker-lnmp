@@ -15,7 +15,7 @@ ENV TIMEZONE=Asia/Shanghai \
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
 COPY ./extensions/ini/tideways.ini /usr/local/etc/php/conf.d/
-COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
+COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/
 
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
