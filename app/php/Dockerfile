@@ -9,13 +9,11 @@ ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=4.1.1 \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
-    SWOOLE_VERSION=4.2.10
+    SWOOLE_VERSION=4.2.12
 
 # 安装扩展
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
-COPY ./extensions/ini/tideways.ini /usr/local/etc/php/conf.d/
-COPY ./extensions/so/tideways.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/
 
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
@@ -31,10 +29,17 @@ RUN set -xe \
             && make -j$(nproc) && make install \
             && rm /tmp/swoole* -rf \
         ) \
+    && mkdir /tmp/tideways && git clone https://github.com/tideways/php-xhprof-extension.git "/tmp/tideways" \
+        && ( \
+            cd /tmp/tideways \
+            && phpize \
+            && ./configure && make -j$(nproc) && make install \
+            && rm /tmp/tideways* -rf \
+        ) \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable swoole redis mongodb imagick \
+    && docker-php-ext-enable tideways_xhprof swoole redis mongodb imagick \
     && apk del --purge *-dev
 
 # 时区设置
