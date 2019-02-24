@@ -46,8 +46,7 @@ server {
     }
 
     location ~ [^/]\.php(/|$) {
-        try_files $uri $uri/ /index.php;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        try_files $uri $uri/ /index.php?$args;        
         fastcgi_pass  172.17.0.1:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
