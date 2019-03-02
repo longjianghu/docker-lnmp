@@ -1,0 +1,44 @@
+server {
+    listen       80;
+    server_name  www.example.com;
+
+    root /var/www/html/www.example.com;
+
+    #access_log /var/log/nginx/www.example.com.access.log main;
+    #error_log  /var/log/nginx/www.example.com.error.log warn;
+
+    location / {
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /index.php?$args;   
+    }
+
+    error_page 500 502 503 504  /50x.html;
+
+    location = /50x.html {
+        root  /usr/share/nginx/html;
+    }
+
+    location ~ [^/]\.php(/|$) {   
+        fastcgi_pass  172.17.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires    30d;
+        access_log off;
+    }
+
+    location ~ .*\.(js|css)?$
+    {
+        expires    12h;
+        access_log off;
+    }
+
+    location ~ /\.
+    {
+        deny  all;
+    }
+}
