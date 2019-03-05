@@ -1,4 +1,4 @@
-FROM php:7.3.0-cli-alpine3.8
+FROM php:7.3.2-cli-alpine3.9
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -12,7 +12,7 @@ ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=4.1.1 \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
-    SWOOLE_VERSION=4.2.13
+    SWOOLE_VERSION=4.3.0
 
 # 安装扩展
 COPY ./src/* /tmp/

@@ -1,11 +1,11 @@
-FROM alpine:3.8
+FROM alpine:3.9
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
     GEARMAND_VERSION=1.1.18 \
     GEARMAN_VERSION=2.0.5 \
-    SWOOLE_VERSION=4.2.13 \
+    SWOOLE_VERSION=4.3.0 \
     MSGPACK_VERSION=2.0.2
 
 COPY ./src/* /tmp/
