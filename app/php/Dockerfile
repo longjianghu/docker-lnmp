@@ -25,7 +25,7 @@ RUN set -xe \
         && ( \
             cd /tmp/swoole \
             && phpize \
-            && ./configure --enable-coroutine --enable-openssl --enable-http2 --enable-async-redis --enable-sockets --enable-mysqlnd \
+            && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
             && make -j$(nproc) && make install \
             && rm /tmp/swoole* -rf \
         ) \

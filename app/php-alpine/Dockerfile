@@ -112,7 +112,7 @@ RUN set -xe \
         && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
         && cd /tmp/swoole \
         && phpize \
-        && ./configure --with-php-config=/usr/bin/php-config --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
+        && ./configure --with-php-config=/usr/bin/php-config --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
         && make -j$(nproc) && make install \
         && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
     ) \
