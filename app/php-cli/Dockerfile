@@ -7,8 +7,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # 环境配置
 ENV TIMEZONE=Asia/Shanghai \
-    GEARMAND_VERSION=1.1.18 \
-    GEARMAN_VERSION=2.0.5 \
     REDIS_VERSION=4.1.1 \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
@@ -30,19 +28,14 @@ RUN set -xe \
         && phpize \
         && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
         && make -j$(nproc) && make install \
-        && rm /tmp/swoole* -rf \
     ) \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable swoole redis mongodb imagick \
-    && apk del --purge *-dev
-
-# 时区设置
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-
-# 清除垃圾文件
-RUN rm /var/cache/apk/* -rf \
+	&& ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && apk del --purge *-dev \
+	&& rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer

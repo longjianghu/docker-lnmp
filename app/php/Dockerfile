@@ -27,26 +27,20 @@ RUN set -xe \
             && phpize \
             && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
             && make -j$(nproc) && make install \
-            && rm /tmp/swoole* -rf \
         ) \
     && mkdir /tmp/tideways && git clone https://github.com/tideways/php-xhprof-extension.git "/tmp/tideways" \
         && ( \
             cd /tmp/tideways \
             && phpize \
             && ./configure && make -j$(nproc) && make install \
-            && rm /tmp/tideways* -rf \
         ) \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable tideways_xhprof swoole redis mongodb imagick \
-    && apk del --purge *-dev
-
-# 时区设置
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-
-# 清除垃圾文件
-RUN rm /var/cache/apk/* -rf \
+	&& ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && apk del --purge *-dev \
+    && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
