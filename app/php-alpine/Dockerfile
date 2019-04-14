@@ -4,7 +4,7 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
     SWOOLE_VERSION=4.3.1 \
-    MSGPACK_VERSION=2.0.2
+	MSGPACK_VERSION=2.0.2
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -18,13 +18,14 @@ RUN set -xe \
         alpine-sdk \
         gperf \
         boost-dev \
-        libevent-dev \
         util-linux-dev \
         libressl-dev \
         libmemcached-dev \
         nghttp2-dev \
         pcre-dev \
+		libevent-dev \
         tzdata \
+		re2c \
 	&& apk add php7 \
         php7-intl \
         php7-openssl \
