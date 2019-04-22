@@ -22,6 +22,12 @@ RUN set -xe \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets \
+    && mkdir /tmp/php-nsq && git clone https://github.com/yunnian/php-nsq "/tmp/php-nsq" \
+    && ( \
+        cd /tmp/php-nsq \
+        && phpize \
+        && ./configure && make -j$(nproc) && make install \
+    ) \
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \
         cd /tmp/swoole \
@@ -32,10 +38,10 @@ RUN set -xe \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable swoole redis mongodb imagick \
-	&& ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && docker-php-ext-enable swoole redis mongodb imagick nsq \
+    && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
     && apk del --purge *-dev \
-	&& rm /var/cache/apk/* -rf \
+    && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer

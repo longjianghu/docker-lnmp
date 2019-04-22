@@ -4,7 +4,7 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
     SWOOLE_VERSION=4.3.2 \
-	MSGPACK_VERSION=2.0.2
+    MSGPACK_VERSION=2.0.2
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -13,7 +13,7 @@ COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 RUN set -xe \
     && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update \
     && apk add --no-cache --virtual .build-deps \
-		ca-certificates \
+        ca-certificates \
         file \
         alpine-sdk \
         gperf \
@@ -23,10 +23,10 @@ RUN set -xe \
         libmemcached-dev \
         nghttp2-dev \
         pcre-dev \
-		libevent-dev \
+        libevent-dev \
         tzdata \
-		re2c \
-	&& apk add php7 \
+        re2c \
+        && apk add php7 \
         php7-intl \
         php7-openssl \
         php7-dba \
@@ -96,37 +96,37 @@ RUN set -xe \
         php7-mysqli \
         php7-simplexml \
         php7-xmlwriter \
-		php7-sockets \
+        php7-sockets \
         php7-posix \
         php7-mongodb \
-		&& ( \
-			mkdir -p /tmp/swoole \
-			&& tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
-			&& cd /tmp/swoole \
-			&& phpize \
-			&& ./configure --with-php-config=/usr/bin/php-config --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
-			&& make -j$(nproc) && make install \
-			&& echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
-		) \
-		&& ( \
-			mkdir -p /tmp/msgpack \
-			&& tar -xf  /tmp/msgpack-${MSGPACK_VERSION}.tar.gz -C /tmp/msgpack  --strip-components=1 \
-			&& cd /tmp/msgpack \
-			&& phpize \
-			&& ./configure \
-			&& make -j$(nproc) && make install \
-			&& echo "extension="msgpack.so"" > /etc/php7/conf.d/msgpack.ini \
-		)\
-		&& sed -i 's|^upload_max_filesize = 2M$|upload_max_filesize = 20M|' /etc/php7/php.ini \
-		&& sed -i 's|^post_max_size = 8M$|post_max_size = 20M|' /etc/php7/php.ini \
-		&& sed -i 's|^;date.timezone =$|date.timezone = Asia/Shanghai|' /etc/php7/php.ini \
-		&& sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
-		&& ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
-		&& apk del .build-deps --purge *-dev \
-		&& rm /var/cache/apk/* -rf \
-		&& rm /usr/src/* -rf \
-		&& rm /tmp/* -rf \
-		&& chmod a+x /usr/local/bin/composer
+        && ( \
+            mkdir -p /tmp/swoole \
+            && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
+            && cd /tmp/swoole \
+            && phpize \
+            && ./configure --with-php-config=/usr/bin/php-config --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
+            && make -j$(nproc) && make install \
+            && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
+        ) \
+        && ( \
+            mkdir -p /tmp/msgpack \
+            && tar -xf  /tmp/msgpack-${MSGPACK_VERSION}.tar.gz -C /tmp/msgpack  --strip-components=1 \
+            && cd /tmp/msgpack \
+            && phpize \
+            && ./configure \
+            && make -j$(nproc) && make install \
+            && echo "extension="msgpack.so"" > /etc/php7/conf.d/msgpack.ini \
+        )\
+        && sed -i 's|^upload_max_filesize = 2M$|upload_max_filesize = 20M|' /etc/php7/php.ini \
+        && sed -i 's|^post_max_size = 8M$|post_max_size = 20M|' /etc/php7/php.ini \
+        && sed -i 's|^;date.timezone =$|date.timezone = Asia/Shanghai|' /etc/php7/php.ini \
+        && sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
+        && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+        && apk del .build-deps --purge *-dev \
+        && rm /var/cache/apk/* -rf \
+        && rm /usr/src/* -rf \
+        && rm /tmp/* -rf \
+        && chmod a+x /usr/local/bin/composer
 
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 

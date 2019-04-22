@@ -38,7 +38,7 @@ RUN set -xe \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
     && docker-php-ext-enable tideways_xhprof swoole redis mongodb imagick \
-	&& ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
     && apk del --purge *-dev \
     && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf \
