@@ -96,13 +96,6 @@ RUN set -xe \
         php7-imagick \
         php7-memcached \
         php7-mongodb \
-        && mkdir /tmp/php-nsq && git clone https://github.com/yunnian/php-nsq "/tmp/php-nsq" \
-        && ( \
-            cd /tmp/php-nsq \
-            && phpize \
-            && ./configure && make -j$(nproc) && make install \
-            && echo "extension=nsq.so" > /etc/php7/conf.d/nsq.ini \
-        ) \
         && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
