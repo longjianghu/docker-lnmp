@@ -9,6 +9,7 @@ ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=4.1.1 \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
+    MSGPACK_VERSION=2.0.3 \
     SWOOLE_VERSION=4.3.2
 
 # 安装扩展
@@ -36,8 +37,9 @@ RUN set -xe \
         ) \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
+    && pecl install /tmp/msgpack-${MSGPACK_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable tideways_xhprof swoole redis mongodb imagick \
+    && docker-php-ext-enable tideways_xhprof swoole redis mongodb imagick msgpack \
     && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
     && apk del --purge *-dev \
     && rm /var/cache/apk/* -rf \
