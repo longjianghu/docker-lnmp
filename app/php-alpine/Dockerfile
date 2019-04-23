@@ -26,6 +26,7 @@ RUN set -xe \
         libevent-dev \
         tzdata \
         re2c \
+        git \
         && apk add php7 \
         php7-bcmath \
         php7-bz2 \
