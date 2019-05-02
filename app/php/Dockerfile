@@ -10,7 +10,7 @@ ENV TIMEZONE=Asia/Shanghai \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
-    SWOOLE_VERSION=4.3.2
+    SWOOLE_VERSION=4.3.3
 
 # 安装扩展
 COPY ./src/* /tmp/
@@ -21,7 +21,7 @@ RUN set -xe \
     freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets \
+    && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets bcmath \
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
         && ( \
             cd /tmp/swoole \
