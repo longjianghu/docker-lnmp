@@ -1,4 +1,4 @@
-FROM php:7.3.2-cli-alpine3.9
+FROM php:7.3.5-cli-alpine3.9
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
