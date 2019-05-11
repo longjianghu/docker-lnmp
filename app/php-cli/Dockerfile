@@ -44,4 +44,4 @@ RUN set -xe \
 
 EXPOSE 80 8099
 
-CMD ['/bin/sh']
+CMD ["/bin/sh"]
