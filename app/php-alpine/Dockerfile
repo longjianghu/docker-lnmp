@@ -12,22 +12,8 @@ COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 
 RUN set -xe \
     && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update \
-    && apk add --no-cache --virtual .build-deps \
-        ca-certificates \
-        file \
-        alpine-sdk \
-        gperf \
-        boost-dev \
-        util-linux-dev \
-        libressl-dev \
-        libmemcached-dev \
-        nghttp2-dev \
-        pcre-dev \
-        libevent-dev \
-        tzdata \
-        re2c \
-        git \
-        && apk add php7 \
+    && apk add --no-cache --virtual .build-deps g++ make autoconf tzdata git libressl-dev libevent-dev \
+    && apk add php7 \
         php7-bcmath \
         php7-bz2 \
         php7-calendar \
@@ -97,6 +83,13 @@ RUN set -xe \
         php7-imagick \
         php7-memcached \
         php7-mongodb \
+        && mkdir /tmp/php-nsq && git clone https://github.com/yunnian/php-nsq.git "/tmp/php-nsq" \
+        && ( \
+            cd /tmp/php-nsq \
+            && phpize \
+            && ./configure && make -j$(nproc) && make install \
+            && echo "extension=nsq.so" > /etc/php7/conf.d/nsq.ini \
+        ) \
         && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
@@ -121,6 +114,7 @@ RUN set -xe \
         && sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
         && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
         && apk del .build-deps --purge *-dev \
+        && apk add tzdata libevent git \
         && rm /var/cache/apk/* -rf \
         && rm /usr/src/* -rf \
         && rm /tmp/* -rf \
