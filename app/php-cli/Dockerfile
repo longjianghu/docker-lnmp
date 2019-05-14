@@ -11,6 +11,7 @@ ENV TIMEZONE=Asia/Shanghai \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
+    NSQ_VERSION=3.4.0 \
     SWOOLE_VERSION=4.3.3
 
 # 安装扩展
@@ -19,7 +20,7 @@ COPY ./composer.phar /usr/local/bin/composer
 
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev \
+    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev libevent-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets bcmath \
@@ -34,7 +35,8 @@ RUN set -xe \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/msgpack-${MSGPACK_VERSION}.tgz \
     && pecl install /tmp/imagick-${IMAGICK_VERSION}.tgz \
-    && docker-php-ext-enable swoole redis mongodb imagick msgpack \
+    && pecl install /tmp/nsq-${NSQ_VERSION}.tgz \
+    && docker-php-ext-enable swoole redis mongodb imagick msgpack nsq \
     && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
     && apk del --purge *-dev \
     && rm /var/cache/apk/* -rf \
