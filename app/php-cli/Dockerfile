@@ -12,7 +12,7 @@ ENV TIMEZONE=Asia/Shanghai \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.4.0 \
-    SWOOLE_VERSION=4.3.3
+    SWOOLE_VERSION=4.3.5
 
 # 安装扩展
 COPY ./src/* /tmp/
