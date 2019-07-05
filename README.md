@@ -82,4 +82,4 @@ docker run --name swoft -p 8080:80  -v /data/var/www/swoft:/data -d php-alpine:1
 
 docker run --name swoft -p 8081:18306  -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft http:start
 
-docker run --name hyperf -p 8081:9501  -v /data/var/www/hyperf:/data -d php-alpine:1.0 php /data/bin/hyperf.php start
+docker run --name hyperf -p 8082:9501  -v /data/var/www/hyperf:/data -d php-alpine:1.0 php /data/bin/hyperf.php start
