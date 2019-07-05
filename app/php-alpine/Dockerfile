@@ -124,6 +124,6 @@ RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 80 18306
+EXPOSE 80 9501 18306
 
 CMD ["/bin/sh"]

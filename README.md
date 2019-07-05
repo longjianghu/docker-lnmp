@@ -38,7 +38,7 @@ docker build -t php:73 ./app/php/
 
 docker build -t php-cli:73 ./app/php-cli/
 
-docker build -t swoft:1.0 ./app/swoft/
+docker build -t php-alpine:1.0 ./app/php-alpine/
 
 docker build -t redis:40 ./app/redis/
 
@@ -76,8 +76,10 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -v /data/var/www/swoft:/data swoft:1.0 composer install -d /data
+docker run --rm -v /data/var/www/swoft:/data php-alpine:1.0 composer install -d /data
 
-docker run --name swoft -p 8080:80  -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft start
+docker run --name swoft -p 8080:80  -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft start
 
-docker run --name swoft -p 8080:18306  -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft http:start
+docker run --name swoft -p 8081:18306  -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft http:start
+
+docker run --name hyperf -p 8081:9501  -v /data/var/www/hyperf:/data -d php-alpine:1.0 php /data/bin/hyperf.php start
