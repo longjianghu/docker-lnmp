@@ -10,7 +10,7 @@ ENV TIMEZONE=Asia/Shanghai \
     MONGODB_VERSION=1.5.2 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
-    SWOOLE_VERSION=4.3.5
+    SWOOLE_VERSION=4.4.0
 
 # 安装扩展
 COPY ./src/* /tmp/
