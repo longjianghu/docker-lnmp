@@ -121,10 +121,12 @@ RUN set -xe \
         && rm /tmp/* -rf \
         && chmod a+x /usr/local/bin/composer
 
+WORKDIR /data
+
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 80 18306 9501
+EXPOSE 80 9501 18306 18307 18308
 
 CMD ["/bin/sh"]

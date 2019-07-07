@@ -78,8 +78,8 @@ Swoft/Hyperf:
 
 docker run --rm -it -v /data/var/www/swoft:/data php-alpine:1.0 composer install -d /data
 
-docker run --name swoft -p 8080:80  -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft start
+docker run --name swoft1 -p 8080:80 -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft start
 
-docker run --name swoft -p 8081:18306  -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft http:start
+docker run --name swoft2 -p 8081:18306 -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft http:start
 
-docker run --name hyperf -p 8082:9501  -v /data/var/www/hyperf:/data -d php-alpine:1.0 php /data/bin/hyperf.php start
+docker run --name hyperf -p 8082:9501 -v /data/var/www/hyperf:/data -d php-alpine:1.0 php /data/bin/hyperf.php start
