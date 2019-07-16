@@ -98,7 +98,6 @@ RUN set -xe \
             && ./configure --with-php-config=/usr/bin/php-config --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
             && make -j$(nproc) && make install \
             && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
-            && echo "swoole.use_shortname = 'Off'" >> /etc/php7/conf.d/swoole.ini \
         ) \
         && ( \
             mkdir -p /tmp/msgpack \
