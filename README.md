@@ -66,7 +66,7 @@ Nginx:
 
 docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
-使用[let’s encrypt](https://github.com/Longjianghu/letsencrypt-dnspod "let’s encrypt")证书
+使用[let’s encrypt](https://github.com/longjianghu/scripts/tree/master/le-dns "let’s encrypt")证书
 
 docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/etc/nginx/cert/:/etc/nginx/cert/ -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:115
 
