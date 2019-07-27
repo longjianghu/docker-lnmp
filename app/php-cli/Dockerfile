@@ -1,4 +1,4 @@
-FROM php:7.3.5-cli-alpine3.9
+FROM php:7.3.7-cli-alpine3.9
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -44,6 +44,6 @@ RUN set -xe \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
 
-EXPOSE 80 8099
+EXPOSE 80 9501 18306 18307 18308
 
 CMD ["/bin/sh"]
