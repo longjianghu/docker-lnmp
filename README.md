@@ -30,25 +30,25 @@ Mac和Windows挂载导致性能低下可以使用docker-sync方案 [https://gith
 
 ### 构建容器
 
-docker build -t mysql:8.0.17 ./app/mysql/
+docker build -t mysql:8.0 ./app/mysql/
 
 docker build -t mongodb:4.1 ./app/mongodb/
 
-docker build -t php:7.3.7 ./app/php/
+docker build -t php:7.3 ./app/php/
 
-docker build -t php-cli:7.3.7 ./app/php-cli/
+docker build -t php-cli:7.3 ./app/php-cli/
 
 docker build -t php-alpine:1.0 ./app/php-alpine/
 
-docker build -t redis:4.0.12 ./app/redis/
+docker build -t redis:4.0 ./app/redis/
 
-docker build -t nginx:1.17.2 ./app/nginx/
+docker build -t nginx:1.17 ./app/nginx/
 
 ### 容器运行方法
 
 MySQL:
 
-docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/master.cnf:/etc/mysql/conf.d/master.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0.17
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/master.cnf:/etc/mysql/conf.d/master.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0
 
 Mongodb:
 
@@ -56,19 +56,19 @@ docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MO
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:4.0.12
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:4.0
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:7.3.7
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:7.3
 
 Nginx:
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.17.2
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.17
 
 使用[let’s encrypt](https://github.com/longjianghu/scripts/tree/master/le-dns "let’s encrypt")证书
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/etc/nginx/cert/:/etc/nginx/cert/ -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.17.2
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/etc/nginx/cert/:/etc/nginx/cert/ -v /data/var/log/nginx/:/var/log/nginx/ -d nginx:1.17
 
 PHPMyadmin：
 
