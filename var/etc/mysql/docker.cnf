@@ -1,0 +1,16 @@
+[mysqld]
+skip-host-cache
+skip-name-resolve
+
+server_id = 1
+binlog_format = row
+log_error = /var/log/mysql/error.log
+explicit_defaults_for_timestamp = true
+default_authentication_plugin = mysql_native_password
+character_set_server = utf8mb4
+collation_server = utf8mb4_unicode_ci
+max_connections = 100000
+long_query_time = 1
+log_queries_not_using_indexes = 1
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/log-slow-queries.log

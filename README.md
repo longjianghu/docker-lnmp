@@ -48,7 +48,7 @@ docker build -t nginx:1.17 ./app/nginx/
 
 MySQL:
 
-docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/master.cnf:/etc/mysql/conf.d/master.cnf -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -v /data/var/log/mysql:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0
 
 Mongodb:
 
