@@ -6,8 +6,9 @@ services:
         ports:
             - "3306:3306"
         volumes:
+            - /data/var/etc/mysql:/etc/mysql/conf.d
             - /data/var/lib/mysql:/var/lib/mysql
-            - /data/var/etc/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+            - /data/var/log/mysql:/var/log/mysql
         environment:
             MYSQL_ROOT_PASSWORD: 123456
         networks:

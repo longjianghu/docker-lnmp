@@ -10,5 +10,4 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
 ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
-RUN sed -i 's/!includedir/includedir/g' /etc/mysql/my.cnf \
-	&& mkdir /var/log/mysql && chown mysql:mysql /var/log/mysql
+RUN mkdir /var/log/mysql && chown mysql:mysql /var/log/mysql
