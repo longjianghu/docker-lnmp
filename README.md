@@ -78,7 +78,7 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/dataswoft:1.0 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data swoft:1.0 composer install -d /data
 
 docker run --name swoft1 -p 8080:80 -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft start
 

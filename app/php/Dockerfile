@@ -5,13 +5,14 @@ MAINTAINER Longjianghu <215241062@qq.com>
 # 更换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update
 
+# 环境配置
 ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=4.1.1 \
-    MONGODB_VERSION=1.5.2 \
+    MONGODB_VERSION=1.6.0 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
-    NSQ_VERSION=3.4.0 \
-    SWOOLE_VERSION=4.4.1
+    NSQ_VERSION=3.4.3 \
+    SWOOLE_VERSION=4.4.7
 
 # 安装扩展
 COPY ./src/* /tmp/
