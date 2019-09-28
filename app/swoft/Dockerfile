@@ -4,7 +4,8 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
     SWOOLE_VERSION=4.4.1 \
-    MSGPACK_VERSION=2.0.2
+    MSGPACK_VERSION=2.0.2 \
+    NSQ_VERSION=3.4.3
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -62,7 +63,6 @@ RUN set -xe \
         php7-session \
         php7-shmop \
         php7-simplexml \
-        php7-snmp \
         php7-soap \
         php7-sockets \
         php7-sodium \
@@ -83,9 +83,10 @@ RUN set -xe \
         php7-imagick \
         php7-memcached \
         php7-mongodb \
-        && mkdir /tmp/php-nsq && git clone https://github.com/yunnian/php-nsq.git "/tmp/php-nsq" \
         && ( \
-            cd /tmp/php-nsq \
+            mkdir -p /tmp/php-nsq \
+            && tar -xf /tmp/php-nsq-${NSQ_VERSION}.tar.gz -C /tmp/php-nsq --strip-components=1 \
+            && cd /tmp/php-nsq \
             && phpize \
             && ./configure && make -j$(nproc) && make install \
             && echo "extension=nsq.so" > /etc/php7/conf.d/nsq.ini \

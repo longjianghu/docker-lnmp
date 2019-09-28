@@ -36,8 +36,6 @@ docker build -t mongodb:4.1 ./app/mongodb/
 
 docker build -t php:7.3 ./app/php/
 
-docker build -t php-cli:7.3 ./app/php-cli/
-
 docker build -t redis:4.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/

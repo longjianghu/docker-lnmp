@@ -12,7 +12,8 @@ ENV TIMEZONE=Asia/Shanghai \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.4.3 \
-    SWOOLE_VERSION=4.4.7
+    SWOOLE_VERSION=4.4.7 \
+    TIDEWAYS_VERSION=5.0.0
 
 # 安装扩展
 COPY ./src/* /tmp/
@@ -31,7 +32,7 @@ RUN set -xe \
         && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
         && make -j$(nproc) && make install \
     ) \
-    && mkdir /tmp/tideways && git clone https://github.com/tideways/php-xhprof-extension.git "/tmp/tideways" \
+    && mkdir /tmp/tideways && tar -zxf /tmp/tideways-${TIDEWAYS_VERSION}.tar.gz -C /tmp/tideways --strip-components=1 \
     && ( \
         cd /tmp/tideways \
         && phpize \
