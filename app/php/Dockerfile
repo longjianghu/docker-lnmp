@@ -24,18 +24,18 @@ RUN set -xe \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets bcmath \
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
-        && ( \
-            cd /tmp/swoole \
-            && phpize \
-            && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
-            && make -j$(nproc) && make install \
-        ) \
+    && ( \
+        cd /tmp/swoole \
+        && phpize \
+        && ./configure --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
+        && make -j$(nproc) && make install \
+    ) \
     && mkdir /tmp/tideways && git clone https://github.com/tideways/php-xhprof-extension.git "/tmp/tideways" \
-        && ( \
-            cd /tmp/tideways \
-            && phpize \
-            && ./configure && make -j$(nproc) && make install \
-        ) \
+    && ( \
+        cd /tmp/tideways \
+        && phpize \
+        && ./configure && make -j$(nproc) && make install \
+    ) \
     && pecl install /tmp/redis-${REDIS_VERSION}.tgz \
     && pecl install /tmp/mongodb-${MONGODB_VERSION}.tgz \
     && pecl install /tmp/msgpack-${MSGPACK_VERSION}.tgz \

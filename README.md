@@ -38,11 +38,11 @@ docker build -t php:7.3 ./app/php/
 
 docker build -t php-cli:7.3 ./app/php-cli/
 
-docker build -t php-alpine:1.0 ./app/php-alpine/
-
 docker build -t redis:4.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/
+
+docker build -t swoft:1.0 ./app/swoft/
 
 ### 容器运行方法
 
@@ -78,8 +78,8 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data php-alpine:1.0 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/dataswoft:1.0 composer install -d /data
 
-docker run --name swoft1 -p 8080:80 -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft start
+docker run --name swoft1 -p 8080:80 -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft start
 
-docker run --name swoft2 -p 8081:18306 -v /data/var/www/swoft:/data -d php-alpine:1.0 php /data/bin/swoft http:start
+docker run --name swoft2 -p 8081:18306 -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft http:start
