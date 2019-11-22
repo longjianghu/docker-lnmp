@@ -9,6 +9,7 @@ ENV TIMEZONE=Asia/Shanghai \
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
+COPY ./swoftcli.phar /usr/local/bin/swoftcli
 COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 
 RUN set -xe \
@@ -119,14 +120,15 @@ RUN set -xe \
         && rm /var/cache/apk/* -rf \
         && rm /usr/src/* -rf \
         && rm /tmp/* -rf \
-        && chmod a+x /usr/local/bin/composer
+        && chmod a+x /usr/local/bin/composer \
+        && chmod a+x /usr/local/bin/swoftcli
 
 WORKDIR /data
 
-RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
+RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 80 9501 18306 18307 18308
+EXPOSE 18306 18307 18308
 
 CMD ["/bin/sh"]

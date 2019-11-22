@@ -40,13 +40,13 @@ docker build -t redis:4.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/
 
-docker build -t swoft:1.0 ./app/swoft/
+docker build -t swoft:1.1 ./app/swoft/
+
+docker build -t swoft-tracker:1.1 ./app/swoft-tracker/
 
 ### 容器运行方法
 
 MySQL:
-
-MySQL配置文件文件权限建议配置成644(如果过大会被MySQL忽略)。
 
 docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -v /data/var/log/mysql:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0
 
@@ -76,6 +76,6 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data swoft:1.0 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data swoft:1.1 composer install -d /data
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d swoft:1.0 php /data/bin/swoft http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d swoft:1.1 php /data/bin/swoft http:start

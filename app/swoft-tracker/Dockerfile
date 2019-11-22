@@ -1,4 +1,4 @@
-FROM swoft:1.0
+FROM longjianghu/swoft:1.1
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -12,7 +12,7 @@ COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 RUN set -xe \
     && ( \
         mkdir -p /tmp/swoole-tracker \
-        && tar -xf /tmp/swoole-tracker.tar.gz -C /tmp/swoole-tracker --strip-components=1 \
+        && tar -xf /tmp/swoole-tracker.tar.gz -C /tmp/swoole-tracker --strip-components=2 \
         && cd /tmp/swoole-tracker && ./deploy_env.sh www.swoole-cloud.com \
         && php_dir=$(php -r "echo @ini_get("extension_dir").PHP_EOL;") \
         && cp ./swoole_tracker${PHP_VERSION}.so $php_dir/swoole_tracker.so \
@@ -23,12 +23,10 @@ RUN set -xe \
     ) \
     && rm /tmp/* -rf
 
-WORKDIR /data
-
-RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
+RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 80 9501 18306 18307 18308
+EXPOSE 18306 18307 18308
 
 CMD ["/bin/sh"]
