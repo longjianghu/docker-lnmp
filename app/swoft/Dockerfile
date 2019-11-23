@@ -3,9 +3,9 @@ FROM alpine:3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
-    SWOOLE_VERSION=4.4.1 \
+    SWOOLE_VERSION=4.4.12 \
     MSGPACK_VERSION=2.0.2 \
-    NSQ_VERSION=3.4.3
+    NSQ_VERSION=3.5.0
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer

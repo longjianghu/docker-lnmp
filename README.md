@@ -32,11 +32,11 @@ Mac和Windows挂载导致性能低下可以使用docker-sync方案 [https://gith
 
 docker build -t mysql:8.0 ./app/mysql/
 
-docker build -t mongodb:4.1 ./app/mongodb/
+docker build -t mongodb:4.2 ./app/mongodb/
 
 docker build -t php:7.3 ./app/php/
 
-docker build -t redis:4.0 ./app/redis/
+docker build -t redis:5.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/
 
@@ -52,11 +52,11 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 Mongodb:
 
-docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongodb:4.1
+docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d mongodb:4.2
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:4.0
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:5.0
 
 PHP:
 

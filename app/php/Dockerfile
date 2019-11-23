@@ -7,13 +7,13 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # 环境配置
 ENV TIMEZONE=Asia/Shanghai \
-    REDIS_VERSION=4.1.1 \
+    REDIS_VERSION=5.0.0 \
     MONGODB_VERSION=1.6.0 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
-    NSQ_VERSION=3.4.3 \
-    SWOOLE_VERSION=4.4.7 \
-    TIDEWAYS_VERSION=5.0.0
+    NSQ_VERSION=3.5.0 \
+    SWOOLE_VERSION=4.4.12 \
+    TIDEWAYS_VERSION=5.0.2
 
 # 安装扩展
 COPY ./src/* /tmp/

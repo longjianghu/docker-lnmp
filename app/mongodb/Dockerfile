@@ -1,4 +1,4 @@
-FROM mongo:4.1
+FROM mongo:4.2.1
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
