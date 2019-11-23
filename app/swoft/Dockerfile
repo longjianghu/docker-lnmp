@@ -3,7 +3,7 @@ FROM alpine:3.8
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
-    SWOOLE_VERSION=4.4.12 \
+    SWOOLE_VERSION=4.4.2 \
     MSGPACK_VERSION=2.0.2 \
     NSQ_VERSION=3.5.0
 
@@ -85,14 +85,6 @@ RUN set -xe \
         php7-memcached \
         php7-mongodb \
         && ( \
-            mkdir -p /tmp/php-nsq \
-            && tar -xf /tmp/php-nsq-${NSQ_VERSION}.tar.gz -C /tmp/php-nsq --strip-components=1 \
-            && cd /tmp/php-nsq \
-            && phpize \
-            && ./configure && make -j$(nproc) && make install \
-            && echo "extension=nsq.so" > /etc/php7/conf.d/nsq.ini \
-        ) \
-        && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
             && cd /tmp/swoole \
@@ -100,6 +92,14 @@ RUN set -xe \
             && ./configure --with-php-config=/usr/bin/php-config --enable-openssl --enable-http2 --enable-sockets --enable-mysqlnd \
             && make -j$(nproc) && make install \
             && echo "extension=swoole.so" > /etc/php7/conf.d/swoole.ini \
+        ) \
+        && ( \
+            mkdir -p /tmp/php-nsq \
+            && tar -xf /tmp/php-nsq-${NSQ_VERSION}.tar.gz -C /tmp/php-nsq --strip-components=1 \
+            && cd /tmp/php-nsq \
+            && phpize \
+            && ./configure && make -j$(nproc) && make install \
+            && echo "extension=nsq.so" > /etc/php7/conf.d/nsq.ini \
         ) \
         && ( \
             mkdir -p /tmp/msgpack \
