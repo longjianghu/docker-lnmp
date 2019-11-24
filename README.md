@@ -40,9 +40,9 @@ docker build -t redis:5.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/
 
-docker build -t swoft:1.1 ./app/swoft/
+docker build -t swoft:1.2 ./app/swoft/
 
-docker build -t swoft-tracker:1.1 ./app/swoft-tracker/
+docker build -t swoft-tracker:1.2 ./app/swoft-tracker/
 
 ### 容器运行方法
 
