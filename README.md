@@ -40,9 +40,9 @@ docker build -t redis:5.0 ./app/redis/
 
 docker build -t nginx:1.17 ./app/nginx/
 
-docker build -t swoft:1.2 ./app/swoft/
+docker build -t swoft:1.2.1 ./app/swoft/
 
-docker build -t swoft-tracker:1.2 ./app/swoft-tracker/
+docker build -t swoft-tracker:1.2.1 ./app/swoft-tracker/
 
 ### 容器运行方法
 
@@ -56,7 +56,7 @@ docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MO
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:5.0-alpine
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:5.0
 
 PHP:
 
@@ -76,6 +76,6 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data swoft:1.1 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data swoft:1.2.1 composer install -d /data
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d swoft:1.1 php /data/bin/swoft http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d swoft:1.2.1 php /data/bin/swoft http:start
