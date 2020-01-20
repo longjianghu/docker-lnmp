@@ -34,7 +34,7 @@ docker build -t mysql:8.0 ./app/mysql/
 
 docker build -t mongodb:4.2 ./app/mongodb/
 
-docker build -t php:7.3 ./app/php/
+docker build -t php:7.4.1 ./app/php/
 
 docker build -t redis:5.0 ./app/redis/
 
@@ -56,11 +56,11 @@ docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MO
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:5.0
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d redis:5.0-alpine
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:7.3
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d php:7.4.1
 
 Nginx:
 

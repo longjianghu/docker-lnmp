@@ -1,4 +1,4 @@
-FROM php:7.3.7-fpm-alpine3.9
+FROM php:7.4.1-fpm-alpine3.11
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -8,11 +8,11 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 环境配置
 ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=5.0.0 \
-    MONGODB_VERSION=1.6.0 \
+    MONGODB_VERSION=1.6.1 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.5.0 \
-    SWOOLE_VERSION=4.4.12 \
+    SWOOLE_VERSION=4.4.15 \
     TIDEWAYS_VERSION=5.0.2
 
 # 安装扩展
@@ -22,8 +22,6 @@ COPY ./composer.phar /usr/local/bin/composer
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
     freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev libevent-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ -with-png-dir=/usr/lib/ \
-    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets bcmath \
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \

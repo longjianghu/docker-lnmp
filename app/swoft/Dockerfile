@@ -1,11 +1,12 @@
-FROM alpine:3.8
+FROM alpine:3.11
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
-    SWOOLE_VERSION=4.4.2 \
-    MSGPACK_VERSION=2.0.2 \
-    NSQ_VERSION=3.5.0
+    SWOOLE_VERSION=4.4.15 \
+    MSGPACK_VERSION=2.0.3 \
+    NSQ_VERSION=3.5.0 \
+    MONGO_VERSION=1.6.1
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -14,8 +15,9 @@ COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 
 RUN set -xe \
     && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update \
-    && apk add --no-cache --virtual .build-deps g++ make autoconf tzdata git libressl-dev libevent-dev \
+    && apk add --no-cache --virtual .build-deps g++ make libressl-dev libevent-dev \
     && apk add php7 \
+        php7-dev \ 
         php7-bcmath \
         php7-bz2 \
         php7-calendar \
@@ -23,7 +25,6 @@ RUN set -xe \
         php7-ctype \
         php7-curl \
         php7-dba \
-        php7-dev \
         php7-doc \
         php7-dom \
         php7-embed \
@@ -83,7 +84,7 @@ RUN set -xe \
         php7-redis \
         php7-imagick \
         php7-memcached \
-        php7-mongodb \
+        && pecl install /tmp/mongodb-${MONGO_VERSION}.tgz \
         && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
@@ -116,7 +117,7 @@ RUN set -xe \
         && sed -i 's|^expose_php = On$|expose_php = Off|' /etc/php7/php.ini \
         && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
         && apk del .build-deps --purge *-dev \
-        && apk add tzdata libevent git \
+        && apk add tzdata libevent libressl git \
         && rm /var/cache/apk/* -rf \
         && rm /usr/src/* -rf \
         && rm /tmp/* -rf \
