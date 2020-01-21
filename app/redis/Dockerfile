@@ -1,4 +1,4 @@
-FROM redis:5.0-alpine
+FROM redis:5.0.7-alpine
 
 MAINTAINER Longjianghu <215241062@qq.com>
 

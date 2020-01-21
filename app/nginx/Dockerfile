@@ -1,4 +1,4 @@
-FROM nginx:1.17.6-alpine
+FROM nginx:1.17.7-alpine
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
