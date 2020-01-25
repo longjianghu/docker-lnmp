@@ -1,4 +1,4 @@
-FROM php:7.4.1-fpm-alpine3.11
+FROM php:7.4.2-fpm-alpine3.11
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -21,7 +21,8 @@ COPY ./composer.phar /usr/local/bin/composer
 
 RUN set -xe \
     && apk add --no-cache --virtual .build-deps tzdata g++ make autoconf git \
-    freetype-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev libevent-dev \
+    freetype-dev libwebp-dev libpng-dev jpeg-dev gmp-dev libzip-dev openssl-dev icu-dev nghttp2-dev imagemagick-dev libevent-dev \
+    && docker-php-ext-configure gd --with-webp --with-jpeg --with-freetype \
     && docker-php-ext-install -j$(nproc) gd zip gmp opcache pdo_mysql mysqli intl pcntl exif sockets bcmath \
     && mkdir /tmp/swoole && tar -zxf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
     && ( \

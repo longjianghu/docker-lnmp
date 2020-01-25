@@ -34,7 +34,7 @@ docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
-docker build -t longjianghu/php:7.4.1 ./app/php/
+docker build -t longjianghu/php:7.4.2 ./app/php/
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
@@ -60,7 +60,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.1
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.2
 
 Redis:
 
