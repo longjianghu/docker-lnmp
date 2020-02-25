@@ -1,9 +1,9 @@
 #!/bin/sh
 
-DESTTAR='http://resources.swoole-cloud.com/getClient/trial/2.8.6'
-MD5HASH='cbe5a28c26443351cf5b2184f015f7fa'
-SHA1HASH='e1427b57a009c2ae4d9488c921c7e36f8d36567b'
-FILESIZE='10449540'
+DESTTAR='http://resources.swoole-cloud.com/getClient/trial/2.8.8'
+MD5HASH='aea6d80e3e42565308bc8790da16c28a'
+SHA1HASH='a0bac614a0f707b1913923536a35f0dd2ad53fbe'
+FILESIZE='10454509'
 MAGICSTRING='MTEzMTQ='
 
 tmpprefix=.
