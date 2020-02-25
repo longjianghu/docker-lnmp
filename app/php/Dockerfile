@@ -1,4 +1,4 @@
-FROM php:7.4.2-fpm-alpine3.11
+FROM php:7.4.3-fpm-alpine3.11
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -12,7 +12,7 @@ ENV TIMEZONE=Asia/Shanghai \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.5.0 \
-    SWOOLE_VERSION=4.4.15 \
+    SWOOLE_VERSION=4.4.16 \
     TIDEWAYS_VERSION=5.0.2
 
 # 安装扩展

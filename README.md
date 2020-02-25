@@ -34,15 +34,15 @@ docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
-docker build -t longjianghu/php:7.4.2 ./app/php/
+docker build -t longjianghu/php:7.4.3 ./app/php/
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
 docker build -t longjianghu/mongodb:4.2.2 ./app/mongodb/
 
-docker build -t longjianghu/swoft:1.2.1 ./app/swoft/
+docker build -t longjianghu/swoft:1.2.2 ./app/swoft/
 
-docker build -t longjianghu/swoft-tracker:1.2.1 ./app/swoft-tracker/
+docker build -t longjianghu/swoft-tracker:1.2.2 ./app/swoft-tracker/
 
 ### 容器运行方法
 
@@ -60,7 +60,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.2
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.3
 
 Redis:
 
@@ -76,6 +76,10 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.1 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.2 composer install -d /data
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.1 php /data/bin/swoft http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.2 php /data/bin/swoft http:start
+
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.2 swoftcli run -c http:start
+
+docker run --name swoft -p 8080:18306 -v /data/var/www/yongfu/message.service:/data -d longjianghu/swoft:1.2.2 swoftcli run -c http:start -b bin/swoft
