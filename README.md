@@ -16,17 +16,19 @@ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8145ad9d
 
 ### 安装 Docker-Compose
 
-yum -y install epel-release python-pip
+curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
-pip install docker-compose
+chmod a+x /usr/local/bin/docker-compose
 
 ### 更换 Composer 镜像
 
-进入PHP容器内执行
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-su www-data -c "composer config -g repo.packagist composer https://packagist.phpcomposer.com"
+### Docker-Sync
 
-Mac和Windows挂载导致性能低下可以使用docker-sync方案 [https://github.com/EugenMayer/docker-sync](https://github.com/EugenMayer/docker-sync "https://github.com/EugenMayer/docker-sync")
+[https://github.com/EugenMayer/docker-sync](https://github.com/EugenMayer/docker-sync "https://github.com/EugenMayer/docker-sync")
+
+解决Mac和Windows挂载导致性能低下问题
 
 ### 构建容器
 
@@ -49,10 +51,6 @@ docker build -t longjianghu/swoft-tracker:1.2.2 ./app/swoft-tracker/
 Nginx:
 
 docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.17.7
-
-使用[let’s encrypt](https://github.com/longjianghu/scripts/tree/master/le-dns "let’s encrypt")证书
-
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/etc/nginx/cert/:/etc/nginx/cert/ -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.17.7
 
 MySQL:
 
