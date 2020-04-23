@@ -24,12 +24,6 @@ chmod a+x /usr/local/bin/docker-compose
 
 composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-### Docker-Sync
-
-[https://github.com/EugenMayer/docker-sync](https://github.com/EugenMayer/docker-sync "https://github.com/EugenMayer/docker-sync")
-
-解决Mac和Windows挂载导致性能低下问题
-
 ### 构建容器
 
 docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
@@ -42,9 +36,9 @@ docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
 docker build -t longjianghu/mongodb:4.2.2 ./app/mongodb/
 
-docker build -t longjianghu/swoft:1.2.2 ./app/swoft/
+docker build -t longjianghu/swoft:1.2.3 ./app/swoft/
 
-docker build -t longjianghu/swoft-tracker:1.2.2 ./app/swoft-tracker/
+docker build -t longjianghu/swoft-tracker:1.2.3 ./app/swoft-tracker/
 
 ### 容器运行方法
 
@@ -74,10 +68,8 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.2 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.3 composer install -d /data
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.2 php /data/bin/swoft http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.3 php /data/bin/swoft http:start
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.2 swoftcli run -c http:start
-
-docker run --name swoft -p 8080:18306 -v /data/var/www/yongfu/message.service:/data -d longjianghu/swoft:1.2.2 swoftcli run -c http:start -b bin/swoft
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.3 swoftcli run -c http:start
