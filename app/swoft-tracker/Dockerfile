@@ -1,4 +1,4 @@
-FROM longjianghu/swoft:1.2.3
+FROM longjianghu/swoft:1.2.4
 
 MAINTAINER Longjianghu <215241062@qq.com>
 

@@ -3,7 +3,7 @@ FROM alpine:3.11
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
-    SWOOLE_VERSION=4.4.17 \
+    SWOOLE_VERSION=4.5.0 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.5.0 \
     MONGO_VERSION=1.6.1
@@ -15,7 +15,7 @@ COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 
 RUN set -xe \
     && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update \
-    && apk add --no-cache --virtual .build-deps g++ make libressl-dev libevent-dev \
+    && apk add --no-cache --virtual .build-deps g++ make libressl-dev openssl-dev libevent-dev \
     && apk add php7 \
         php7-dev \ 
         php7-bcmath \
