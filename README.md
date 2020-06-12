@@ -60,7 +60,7 @@ docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redi
 
 Mongo:
 
-docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d longjianghu/mongo:4.4.0
+docker run --name mongo -p 27017:27017 -v /data/var/lib/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d longjianghu/mongo:4.4.0
 
 PHPMyadmin：
 
