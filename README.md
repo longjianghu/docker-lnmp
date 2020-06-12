@@ -30,15 +30,15 @@ docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
-docker build -t longjianghu/php:7.4.3 ./app/php/
+docker build -t longjianghu/php:7.4.4 ./app/php/
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
 docker build -t longjianghu/mongodb:4.2.2 ./app/mongodb/
 
-docker build -t longjianghu/swoft:1.2.4 ./app/swoft/
+docker build -t longjianghu/swoft:1.2.5 ./app/swoft/
 
-docker build -t longjianghu/swoft-tracker:1.2.4 ./app/swoft-tracker/
+docker build -t longjianghu/swoft-tracker:1.2.5 ./app/swoft-tracker/
 
 ### 容器运行方法
 

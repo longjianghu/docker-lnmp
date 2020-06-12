@@ -3,7 +3,7 @@ FROM alpine:3.11
 MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
-    SWOOLE_VERSION=4.5.0 \
+    SWOOLE_VERSION=4.5.2 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.5.0 \
     MONGO_VERSION=1.6.1
