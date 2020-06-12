@@ -132,4 +132,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 18306 18307 18308
 
-CMD ["/bin/sh"]
+CMD ["php", "/data/bin/swoft", "http:start"]
