@@ -34,7 +34,7 @@ docker build -t longjianghu/php:7.4.4 ./app/php/
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
-docker build -t longjianghu/mongodb:4.2.2 ./app/mongodb/
+docker build -t longjianghu/mongo:4.4.0 ./app/mongo/
 
 docker build -t longjianghu/swoft:1.2.5 ./app/swoft/
 
@@ -52,15 +52,15 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/data/htdocs -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.3
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/data/htdocs -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.4
 
 Redis:
 
 docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d longjianghu/redis:5.0.7
 
-Mongodb:
+Mongo:
 
-docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d longjianghu/mongodb:4.2.2
+docker run --name mongodb -p 27017:27017 -v /data/var/lib/mongodb:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 -d longjianghu/mongo:4.4.0
 
 PHPMyadmin：
 

@@ -8,7 +8,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 环境配置
 ENV TIMEZONE=Asia/Shanghai \
     REDIS_VERSION=5.0.0 \
-    MONGODB_VERSION=1.6.1 \
+    MONGODB_VERSION=1.7.4 \
     IMAGICK_VERSION=3.4.3 \
     MSGPACK_VERSION=2.0.3 \
     NSQ_VERSION=3.5.0 \

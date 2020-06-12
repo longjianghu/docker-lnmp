@@ -1,4 +1,4 @@
-FROM mongo:4.2.2
+FROM mongo:4.4.0-rc9-bionic
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
