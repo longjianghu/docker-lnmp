@@ -49,3 +49,5 @@ RUN set -xe \
     && rm /usr/src/* -rf \
     && rm /tmp/* -rf \
     && chmod a+x /usr/local/bin/composer
+
+WORKDIR /data/htdocs

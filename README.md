@@ -44,7 +44,7 @@ docker build -t longjianghu/swoft-tracker:1.2.5 ./app/swoft-tracker/
 
 Nginx:
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/var/www/html -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.17.7
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/data/htdocs -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.17.7
 
 MySQL:
 
@@ -52,7 +52,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/var/www/html -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.3
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/data/htdocs -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.3
 
 Redis:
 
@@ -68,8 +68,8 @@ docker run --name phpmyadmin -p 8000:80 -e PMA_HOST=172.17.0.1 -d phpmyadmin/php
 
 Swoft:
 
-docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.4 composer install -d /data
+docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:1.2.5 composer install -d /data
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.4 php /data/bin/swoft http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.5 php /data/bin/swoft http:start
 
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.4 swoftcli run -c http:start
+docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:1.2.5 swoftcli run -c http:start
