@@ -26,11 +26,14 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 ### 构建容器
 
+
 docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
 docker build -t longjianghu/php:7.4.7 ./app/php/
+
+> docker build -t longjianghu/php:7.4.7 -f ./app/php/amqp/Dockerfile ./app/php
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
