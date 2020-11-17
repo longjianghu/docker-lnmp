@@ -76,5 +76,3 @@ Swoft:
 docker run --rm -it -v /data/var/www/swoft:/data longjianghu/swoft:4.5.2 composer install -d /data
 
 docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:4.5.2 php /data/bin/swoft http:start
-
-docker run --name swoft -p 8080:18306 -v /data/var/www/swoft:/data -d longjianghu/swoft:4.5.2 swoftcli run -c http:start
