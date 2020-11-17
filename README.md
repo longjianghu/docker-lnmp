@@ -41,6 +41,8 @@ docker build -t longjianghu/mongo:4.4.0 ./app/mongo/
 
 docker build -t longjianghu/swoft:4.5.2 ./app/swoft/
 
+> docker build -t longjianghu/swoft:4.5.2 -f ./app/swoft/amqp/Dockerfile ./app/swoft
+
 docker build -t longjianghu/swoft-tracker:4.5.2 ./app/swoft-tracker/
 
 ### 容器运行方法
