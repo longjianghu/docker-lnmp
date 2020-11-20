@@ -1,4 +1,4 @@
-FROM nginx:1.18.0-alpine-perl
+FROM openresty/openresty:1.19.3.1-0-alpine
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -9,9 +9,12 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache --virtual tzdata
 
 ENV TIMEZONE Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    COPY ./nginx.conf  /usr/local/openresty/nginx/conf/nginx.conf
 
 # 清除垃圾文件
 RUN apk del --purge *-dev \
     && rm /var/cache/apk/* -rf \
     && rm /usr/src/* -rf
+
+WORKDIR /data/htdocs

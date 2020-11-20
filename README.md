@@ -27,7 +27,9 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 ### 构建容器
 
 
-docker build -t longjianghu/nginx:1.17.7 ./app/nginx/
+docker build -t longjianghu/nginx:1.18.0 ./app/nginx/
+
+> docker build -t longjianghu/openresty:1.19.3 ./app/openresty/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
@@ -49,7 +51,7 @@ docker build -t longjianghu/swoft-tracker:4.5.2 ./app/swoft-tracker/
 
 Nginx:
 
-docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/data/htdocs -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.17.7
+docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/data/htdocs -v /data/var/etc/nginx/conf.d/:/etc/nginx/conf.d/ -v /data/var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf -v /data/var/log/nginx/:/var/log/nginx/ -d longjianghu/nginx:1.19.4
 
 MySQL:
 
