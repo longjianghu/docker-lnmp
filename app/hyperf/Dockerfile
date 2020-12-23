@@ -6,7 +6,8 @@ ENV TIMEZONE=Asia/Shanghai \
     SWOOLE_VERSION=4.5.2 \
     MSGPACK_VERSION=2.1.2 \
     NSQ_VERSION=3.5.0 \
-    MONGO_VERSION=1.9.0
+    MONGO_VERSION=1.9.0 \
+    PROTOBUF_VERSION=3.14.0
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -85,6 +86,9 @@ RUN set -xe \
         php7-memcached \
         php7-pecl-amqp \
         && pecl install /tmp/mongodb-${MONGO_VERSION}.tgz \
+        && echo "extension="mongodb.so"" > /etc/php7/conf.d/mongodb.ini \
+        && pecl install /tmp/protobuf-${PROTOBUF_VERSION}.tgz \
+        && echo "extension="protobuf.so"" > /etc/php7/conf.d/protobuf.ini \
         && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
@@ -129,6 +133,6 @@ RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 18306 18307 18308
+EXPOSE 9501
 
-CMD ["php", "/data/bin/swoft", "http:start"]
+CMD ["php", "/data/bin/hyperf.php", "http:start"]

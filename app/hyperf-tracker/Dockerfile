@@ -1,4 +1,4 @@
-FROM longjianghu/swoft:4.5.2
+FROM longjianghu/hyperf:4.5.2
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -24,6 +24,6 @@ RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 18306 18307 18308
+EXPOSE 9501
 
 CMD ["/bin/sh"]
