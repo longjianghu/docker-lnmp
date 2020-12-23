@@ -4,9 +4,9 @@ MAINTAINER Longjianghu <215241062@qq.com>
 
 ENV TIMEZONE=Asia/Shanghai \
     SWOOLE_VERSION=4.5.2 \
-    MSGPACK_VERSION=2.0.3 \
+    MSGPACK_VERSION=2.1.2 \
     NSQ_VERSION=3.5.0 \
-    MONGO_VERSION=1.7.4
+    MONGO_VERSION=1.9.0
 
 COPY ./src/* /tmp/
 COPY ./composer.phar /usr/local/bin/composer
@@ -83,6 +83,7 @@ RUN set -xe \
         php7-redis \
         php7-imagick \
         php7-memcached \
+        php7-pecl-amqp \
         && pecl install /tmp/mongodb-${MONGO_VERSION}.tgz \
         && ( \
             mkdir -p /tmp/swoole \
@@ -103,7 +104,7 @@ RUN set -xe \
         ) \
         && ( \
             mkdir -p /tmp/msgpack \
-            && tar -xf  /tmp/msgpack-${MSGPACK_VERSION}.tar.gz -C /tmp/msgpack  --strip-components=1 \
+            && tar -xf  /tmp/msgpack-php-msgpack-${MSGPACK_VERSION}.tar.gz -C /tmp/msgpack  --strip-components=1 \
             && cd /tmp/msgpack \
             && phpize \
             && ./configure \

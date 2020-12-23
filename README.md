@@ -33,17 +33,13 @@ docker build -t longjianghu/nginx:1.18.0 ./app/nginx/
 
 docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
 
-docker build -t longjianghu/php:7.4.7 ./app/php/
-
-> docker build -t longjianghu/php:7.4.7 -f ./app/php/amqp/Dockerfile ./app/php
+docker build -t longjianghu/php:7.4.13 ./app/php/
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/
 
 docker build -t longjianghu/mongo:4.4.0 ./app/mongo/
 
 docker build -t longjianghu/swoft:4.5.2 ./app/swoft/
-
-> docker build -t longjianghu/swoft:4.5.2 -f ./app/swoft/amqp/Dockerfile ./app/swoft
 
 docker build -t longjianghu/swoft-tracker:4.5.2 ./app/swoft-tracker/
 
@@ -59,7 +55,7 @@ docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v
 
 PHP:
 
-docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/data/htdocs -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.7
+docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/php/php.ini -v /data/var/www:/data/htdocs -v /data/var/log/php:/var/log/php -d longjianghu/php:7.4.13
 
 Redis:
 
