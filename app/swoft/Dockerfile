@@ -85,6 +85,7 @@ RUN set -xe \
         php7-memcached \
         php7-pecl-amqp \
         && pecl install /tmp/mongodb-${MONGO_VERSION}.tgz \
+        && echo "extension="mongodb.so"" > /etc/php7/conf.d/mongodb.ini \
         && ( \
             mkdir -p /tmp/swoole \
             && tar -xf /tmp/swoole-src-${SWOOLE_VERSION}.tar.gz -C /tmp/swoole --strip-components=1 \
