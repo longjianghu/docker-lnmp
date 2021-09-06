@@ -26,19 +26,19 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 ### 构建容器
 
-docker build -t longjianghu/nginx:1.18.0 ./app/nginx/
+docker build -t longjianghu/nginx:1.18.0 ./app/nginx/1.18.0
 
-> docker build -t longjianghu/openresty:1.19.3 ./app/openresty/
+> docker build -t longjianghu/openresty:1.19.3 ./app/openresty/1.19.3
 
-docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
+docker build -t longjianghu/mysql:8.0.19 ./app/mysql/8.0.19 
 
-docker build -t longjianghu/php:7.4.13 ./app/php/
+docker build -t longjianghu/php:7.4.13 ./app/php/7.4.13
 
-docker build -t longjianghu/redis:6.2.1 ./app/redis/
+docker build -t longjianghu/redis:6.2.1 ./app/redis/6.2.1
 
-docker build -t longjianghu/mongo:4.4.0 ./app/mongo/
+docker build -t longjianghu/mongo:4.4.0 ./app/mongo/4.4.0
 
-docker build -t longjianghu/hyperf:2.1 ./app/hyperf/
+docker build -t longjianghu/hyperf:2.1 ./app/hyperf/2.1
 
 ### 容器运行方法
 
