@@ -26,19 +26,19 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 ### 构建容器
 
-docker build -t longjianghu/nginx:1.18.0 ./app/nginx/
+docker build -t longjianghu/nginx:1.18.0 ./app/nginx/1.18.0
 
-> docker build -t longjianghu/openresty:1.19.3 ./app/openresty/
+> docker build -t longjianghu/openresty:1.19.3 ./app/openresty/1.19.3
 
-docker build -t longjianghu/mysql:8.0.19 ./app/mysql/
+docker build -t longjianghu/mysql:8.4.1./app/mysql/8.4.1
 
-docker build -t longjianghu/php:7.4.13 ./app/php/
+docker build -t longjianghu/php:7.4.13 ./app/php/7.4.13
 
-docker build -t longjianghu/redis:5.0.7 ./app/redis/
+docker build -t longjianghu/redis:5.0.7 ./app/redis/5.0.7
 
-docker build -t longjianghu/mongo:4.4.0 ./app/mongo/
+docker build -t longjianghu/mongo:4.4.0 ./app/mongo/4.4.0
 
-docker build -t longjianghu/hyperf:2.0 ./app/hyperf/
+docker build -t longjianghu/hyperf:2.0 ./app/hyperf/2.0
 
 ### 容器运行方法
 
@@ -48,7 +48,7 @@ docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/data/htdocs -v /da
 
 MySQL:
 
-docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -v /data/var/log/mysql:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d longjianghu/mysql:8.0.19
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -v /data/var/log/mysql:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d longjianghu/mysql:8.4.1
 
 PHP:
 
