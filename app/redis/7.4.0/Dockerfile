@@ -1,4 +1,4 @@
-FROM nginx:1.18.0-alpine-perl
+FROM redis:7.4.0-alpine3.20
 
 MAINTAINER Longjianghu <215241062@qq.com>
 
@@ -10,3 +10,7 @@ RUN apk add --no-cache tzdata
 
 ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
+COPY redis.conf /etc/redis.conf
+
+CMD ["redis-server","/etc/redis.conf"]

@@ -9,15 +9,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 COPY ./nginx.conf  /usr/local/openresty/nginx/conf/nginx.conf
 
 # 时区设置
-RUN apk add --no-cache --virtual tzdata
+RUN apk add --no-cache tzdata
 
 ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
 	&& mkdir /var/log/nginx -p
-
-# 清除垃圾文件
-RUN apk del --purge *-dev \
-    && rm /var/cache/apk/* -rf \
-    && rm /usr/src/* -rf
-
-WORKDIR /data/htdocs

@@ -36,6 +36,8 @@ docker build -t longjianghu/php:7.4.13 ./app/php/7.4.13
 
 docker build -t longjianghu/redis:5.0.7 ./app/redis/5.0.7
 
+docker build -t longjianghu/redis:7.4.0 ./app/redis/7.4.0
+
 docker build -t longjianghu/mongo:4.4.0 ./app/mongo/4.4.0
 
 docker build -t longjianghu/hyperf:2.0 ./app/hyperf/2.0
@@ -56,7 +58,9 @@ docker run --name php -p 9000:9000 -v /data/var/etc/php/php.ini:/usr/local/etc/p
 
 Redis:
 
-docker run --name redis -p 6379:6379 -v /data/var/etc/redis/redis.conf:/etc/redis.conf -d longjianghu/redis:5.0.7
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/5.0.7/redis.conf:/etc/redis.conf -d longjianghu/redis:5.0.7
+
+docker run --name redis -p 6379:6379 -v /data/var/etc/redis/7.4.0/redis.conf:/etc/redis.conf -d longjianghu/redis:7.4.0
 
 Mongo:
 
