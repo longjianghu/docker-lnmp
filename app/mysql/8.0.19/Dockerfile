@@ -1,6 +1,6 @@
 FROM mysql:8.0.19
 
-MAINTAINER Longjianghu <215241062@qq.com>
+LABEL maintainer="Longjianghu <215241062@qq.com>"
 
 # 更换国内源
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \

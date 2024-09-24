@@ -1,6 +1,6 @@
 FROM redis:5.0.7-alpine
 
-MAINTAINER Longjianghu <215241062@qq.com>
+LABEL maintainer="Longjianghu <215241062@qq.com>"
 
 # 更换源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update

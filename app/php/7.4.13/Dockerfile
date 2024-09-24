@@ -1,6 +1,6 @@
 FROM php:7.4.13-zts-alpine3.12
 
-MAINTAINER Longjianghu <215241062@qq.com>
+LABEL maintainer="Longjianghu <215241062@qq.com>"
 
 # 更换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk update

@@ -1,6 +1,6 @@
 FROM hyperf/hyperf:7.4-alpine-v3.11-swoole
 
-MAINTAINER Longjianghu <215241062@qq.com>
+LABEL maintainer="Longjianghu <215241062@qq.com>"
 
 COPY ./docker-entrypoint /usr/local/bin/docker-entrypoint.sh
 
