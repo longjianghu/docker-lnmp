@@ -11,6 +11,6 @@ COPY ./nginx.conf  /usr/local/openresty/nginx/conf/nginx.conf
 # 时区设置
 RUN apk add --no-cache tzdata
 
-ENV TIMEZONE Asia/Shanghai
+ENV TIMEZONE=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
 	&& mkdir /var/log/nginx -p

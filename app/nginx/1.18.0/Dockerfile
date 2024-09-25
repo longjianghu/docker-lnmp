@@ -8,5 +8,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 时区设置
 RUN apk add --no-cache tzdata
 
-ENV TIMEZONE Asia/Shanghai
+ENV TIMEZONE=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone

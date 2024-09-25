@@ -50,7 +50,9 @@ docker run --name nginx -p 80:80 -p 443:443 -v /data/var/www:/data/htdocs -v /da
 
 MySQL:
 
-docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -v /data/var/log/mysql:/var/log/mysql -e MYSQL_ROOT_PASSWORD=123456 -d longjianghu/mysql:8.4.1
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/8.0.19:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d longjianghu/mysql:8.0.19
+
+docker run --name mysql -p 3306:3306 -v /data/var/etc/mysql/8.4.1:/etc/mysql/conf.d -v /data/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d longjianghu/mysql:8.4.1
 
 PHP:
 
